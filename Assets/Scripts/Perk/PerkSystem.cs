@@ -22,15 +22,15 @@ public class PerkSystem : MonoBehaviour
       selectedPerk = PerkType.Teleportation;
    }
 
-   /*void Update()
+   void Update()
    {
       if (Input.GetKeyDown(KeyCode.P))
       {
          ActivatePerk();
       }
-   }*/
+   }
 
-   /*void ActivatePerk()
+   void ActivatePerk()
    {
       if (!isPerkActive || isCooldownActive) return;
 
@@ -49,7 +49,7 @@ public class PerkSystem : MonoBehaviour
             StartCoroutine(HandleAimAssist());
             break;
       }
-   }*/
+   }
 
    IEnumerator HandleDamageModifier(float modifier)
    {
@@ -57,7 +57,7 @@ public class PerkSystem : MonoBehaviour
       Debug.Log($"Damage modifier activated: x{modifier}");
       yield return new WaitForSeconds(perkDuration);
       Debug.Log("Damage Modifier deactivated");
-      //StartCooldown();
+      StartCooldown();
    }
 
    void Teleport()
@@ -74,7 +74,7 @@ public class PerkSystem : MonoBehaviour
          Debug.Log("No valid teleport position within range");
       }
 
-      //StartCooldown();
+      StartCooldown();
    }
 
    Vector3 GetTeleportPosition()
@@ -89,5 +89,30 @@ public class PerkSystem : MonoBehaviour
       }
 
       return Vector3.zero;
+   }
+
+   IEnumerator HandleAimAssist()
+   {
+      isPerkActive = true;
+      Debug.Log("Aim Assist Activated");
+      yield return new WaitForSeconds(perkDuration);
+      Debug.Log("Aim Assist deactivated");
+      StartCooldown();
+   }
+
+   void StartCooldown()
+   {
+      isPerkActive = false;
+      isCooldownActive = true;
+
+      StartCoroutine(CooldownRoutine());
+   }
+
+   IEnumerator CooldownRoutine()
+   {
+      Debug.Log("Perk on cooldown");
+      yield return new WaitForSeconds(cooldownTime);
+      Debug.Log("Perk ready");
+      isCooldownActive = false;
    }
 }
