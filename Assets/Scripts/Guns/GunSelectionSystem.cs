@@ -56,13 +56,13 @@ public class GunSelectionSystem : MonoBehaviour
         Debug.Log($"Perk Selected: {selectedPerk}");
     }
 
-    /*void StartGame()
+    void StartGame()
     {
         Debug.Log($"Starting game with Gun: {selectedGun}, Perk: {selectedPerk}");
 
 
-        GameManager.Instance.SetPlayerLoadout(selectedGun, selectedPerk);
+        //GameManager.Instance.SetPlayerLoadout(selectedGun, selectedPerk);
 
         UnityEngine.SceneManagement.SceneManager.LoadScene("Games List");
-    }*/
+    }
 }

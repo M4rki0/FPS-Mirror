@@ -9,7 +9,7 @@ namespace QuickStart
     {
         public void LoadScene()
         {
-            SceneManager.LoadScene("Menu");
+            SceneManager.LoadScene("MyScene");
         }
     }
 }

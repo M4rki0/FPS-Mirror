@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2360400152282829962}
   - component: {fileID: 4296551037055445541}
   - component: {fileID: 6733547232193588840}
+  - component: {fileID: 3007623609001427733}
   - component: {fileID: 2160896570414652899}
   - component: {fileID: 1494444157163858970}
   - component: {fileID: 8160414496905577918}
@@ -113,6 +114,22 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3007623609001427733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 223979628983113338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bd34d5d74632e44f9b8bee9165a063e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arPrefab: {fileID: 919132149155446097, guid: 03bb37c8998aef942a6342fcbd5edb86, type: 3}
+  smgPrefab: {fileID: 919132149155446097, guid: 17f422cea3e0b6b42bed56a96347dba0, type: 3}
+  sniperPrefab: {fileID: 919132149155446097, guid: c65d77dafc1ff3c419dcf7374ec5c71a, type: 3}
+  shotgunPrefab: {fileID: 919132149155446097, guid: 41269d152c43c7b4caee64d34ae37585, type: 3}
 --- !u!114 &2160896570414652899
 MonoBehaviour:
   m_ObjectHideFlags: 0
