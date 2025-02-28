@@ -13,9 +13,11 @@ GameObject:
   - component: {fileID: 4296551037055445541}
   - component: {fileID: 9155175989942983777}
   - component: {fileID: 6733547232193588840}
+  - component: {fileID: 7498224372745751957}
   - component: {fileID: 2160896570414652899}
   - component: {fileID: 1494444157163858970}
   - component: {fileID: 8160414496905577918}
+  - component: {fileID: 9062634279151511528}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -103,6 +105,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73dbca4dd4ed31146b3b7fa906ff3200, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  arPrefab: {fileID: 0}
+  smgPrefab: {fileID: 0}
+  sniperPrefab: {fileID: 0}
+  shotgunPrefab: {fileID: 0}
 --- !u!136 &6733547232193588840
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -126,6 +132,30 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7498224372745751957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 223979628983113338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 169a1f6a466aade4ebe96237ef2748f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  matchID: 
+  playerIndex: 0
+  currentMatch:
+    matchID: 
+    publicMatch: 0
+    inMatch: 0
+    matchFull: 0
+    players: []
+  playerLobbyUI: {fileID: 0}
 --- !u!114 &2160896570414652899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,6 +230,22 @@ MonoBehaviour:
   - {fileID: 2272078351015081602}
   - {fileID: 4029087449225712892}
   activeWeaponSynced: 0
+--- !u!114 &9062634279151511528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 223979628983113338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d17e718851449a6879986e45c458fb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  MatchID: 
 --- !u!1 &382846496717217017
 GameObject:
   m_ObjectHideFlags: 0
