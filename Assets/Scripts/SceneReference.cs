@@ -7,5 +7,10 @@ namespace QuickStart
     public class SceneReference : MonoBehaviour
     {
         public SceneScript sceneScript;
+
+        private void Start()
+        {
+            sceneScript = GetComponent<SceneScript>();
+        }
     }
 }

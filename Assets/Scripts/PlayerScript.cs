@@ -21,6 +21,8 @@ namespace QuickStart
         [SyncVar(hook = nameof(OnColorChanged))]
         public Color playerColor = Color.white;
 
+        private UIStuff uiStuff;
+
         void OnNameChanged(string _Old, string _New)
         {
             playerNameText.text = playerName;
@@ -54,7 +56,7 @@ namespace QuickStart
             //player info sent to server, then server updates sync vars which handles it on all clients
             playerName = _name;
             playerColor = _col;
-            sceneScript.statusText = $"{playerName} joined.";
+            //uiStuff.statusText = $"{playerName} joined.";
         }
 
         void Update()
@@ -88,7 +90,7 @@ namespace QuickStart
                 {
                     weaponCooldownTime = Time.time + activeWeapon.weaponCooldown;
                     activeWeapon.weaponAmmo -= 1;
-                    sceneScript.UIAmmo(activeWeapon.weaponAmmo);
+                    //uiStuff.UIAmmo(activeWeapon.weaponAmmo);
                     CmdShootRay();
                 }
             }
@@ -121,12 +123,12 @@ namespace QuickStart
                     item.SetActive(false);
             
             //allows all players to run this
-            sceneScript = GameObject.Find("SceneReference").GetComponent<SceneReference>().sceneScript;
+            sceneScript = GameObject.Find("GameManager").GetComponent<SceneReference>().sceneScript;
             
             if (selectedWeaponLocal < weaponArray.Length && weaponArray[selectedWeaponLocal] != null)
             {
                 activeWeapon = weaponArray[selectedWeaponLocal].GetComponent<Weapon>();
-                sceneScript.UIAmmo(activeWeapon.weaponAmmo);
+                //uiStuff.UIAmmo(activeWeapon.weaponAmmo);
             }
         }
         
@@ -134,7 +136,7 @@ namespace QuickStart
         public void CmdSendPlayerMessage()
         {
             if (sceneScript) 
-                sceneScript.statusText = $"{playerName} says hello {Random.Range(10, 99)}";
+                uiStuff.statusText = $"{playerName} says hello {Random.Range(10, 99)}";
         }
         
         private int selectedWeaponLocal = 1;
@@ -157,7 +159,7 @@ namespace QuickStart
                 weaponArray[_New].SetActive(true);
                 activeWeapon = weaponArray[activeWeaponSynced].GetComponent<Weapon>();
                 if (isLocalPlayer)
-                    sceneScript.UIAmmo(activeWeapon.weaponAmmo);
+                   uiStuff.UIAmmo(activeWeapon.weaponAmmo);
             }
         }
 

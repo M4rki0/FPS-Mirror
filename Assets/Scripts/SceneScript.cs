@@ -1,28 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using Mirror;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 namespace QuickStart
 {
     public class SceneScript : NetworkBehaviour
     {
-        public TMP_Text canvasStatusText;
         public PlayerScript playerScript;
         public SceneReference sceneReference;
-
-        [SyncVar(hook = nameof(OnStatusTextChanged))]
-        public string statusText;
-
-        void OnStatusTextChanged(string _Old, string _New)
+        
+        private void Start()
         {
-            //called from sync var hook, to update info on screen for all players
-            canvasStatusText.text = statusText;
+            sceneReference = GetComponent<SceneReference>();
+            
         }
-
         public void ButtonSendMessage()
         {
             if (playerScript != null)  
@@ -41,13 +34,6 @@ namespace QuickStart
             }
             else
                 Debug.Log("You are not Host.");
-        }
-        
-        public TMP_Text canvasAmmoText;
-    
-        public void UIAmmo(int _value)
-        {
-            canvasAmmoText.text = "Ammo: " + _value;
         }
     }
 }

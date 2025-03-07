@@ -14,14 +14,14 @@ public class MatchmakingManager : MonoBehaviour
     }
 
     // Creating a new lobby (starts a server)
-    private void CreateLobby()
+    public void CreateLobby()
     {
         NetworkManager.singleton.StartHost();
         Debug.Log("Created Lobby: Waiting for players...");
     }
 
     // Joining an existing lobby
-    private void JoinLobby()
+    public void JoinLobby()
     {
         string lobbyAddress = "10.16.39.17"; // Example address, use real matchmaking data
         NetworkManager.singleton.networkAddress = lobbyAddress;

@@ -105,10 +105,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73dbca4dd4ed31146b3b7fa906ff3200, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arPrefab: {fileID: 0}
-  smgPrefab: {fileID: 0}
-  sniperPrefab: {fileID: 0}
-  shotgunPrefab: {fileID: 0}
+  arPrefab: {fileID: 5684131721993595100, guid: 8f8b80af3e5652d43a12af2a7693112e, type: 3}
+  smgPrefab: {fileID: 306306269906387295, guid: acca5f13bee4e2649a626d2cf6cebb7c, type: 3}
+  sniperPrefab: {fileID: 3936134217170879942, guid: ff490040310add845984cb099e7e51f7, type: 3}
+  shotgunPrefab: {fileID: 2340282148845250773, guid: 17c1c0f5f6241344bb5d601a8b53ede6, type: 3}
 --- !u!136 &6733547232193588840
 CapsuleCollider:
   m_ObjectHideFlags: 0
