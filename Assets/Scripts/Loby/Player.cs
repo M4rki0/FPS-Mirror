@@ -32,6 +32,9 @@ namespace MirrorBasics {
         }
 
         public override void OnStartClient () {
+            
+            Debug.Log ($"Client Connected");
+            
             if (isLocalPlayer) {
                 localPlayer = this;
             } else {
@@ -128,7 +131,7 @@ namespace MirrorBasics {
         }
 
         void ServerDisconnect () {
-            MatchMaker.instance.PlayerDisconnected (this, matchID);
+            //MatchMaker.instance.PlayerDisconnected (this, matchID);
             RpcDisconnectGame ();
             networkMatch.matchId = netIDGuid;
         }

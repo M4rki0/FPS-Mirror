@@ -29,6 +29,12 @@ public class LobbyManager : NetworkManager
         UpdatePlayerCount();
     }
 
+    public override void OnClientConnect()
+    {
+     base.OnClientConnect();
+     Debug.Log("CLIENT CONNECTED");
+    }
+
     // Update the number of players in the lobby
     private void UpdatePlayerCount()
     {
