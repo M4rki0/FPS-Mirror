@@ -909,7 +909,7 @@ PrefabInstance:
     - target: {fileID: 1516858732921740734, guid: 547f7b7344717d84c8718b86988aff01, type: 3}
       propertyPath: playerPrefab
       value: 
-      objectReference: {fileID: 223979628983113338, guid: 710a9f9386e4d7242baf8a9d94b0f55b, type: 3}
+      objectReference: {fileID: 223979628983113338, guid: a02b63dd1823b7640b9d594639f154b9, type: 3}
     - target: {fileID: 7160802857681937727, guid: 547f7b7344717d84c8718b86988aff01, type: 3}
       propertyPath: m_LocalPosition.x
       value: 550.5

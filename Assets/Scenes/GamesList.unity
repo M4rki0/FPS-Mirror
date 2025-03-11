@@ -620,6 +620,7 @@ GameObject:
   m_Component:
   - component: {fileID: 336919358}
   - component: {fileID: 336919359}
+  - component: {fileID: 336919360}
   m_Layer: 0
   m_Name: Load Game scene
   m_TagString: Untagged
@@ -654,9 +655,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4ec1dce93dcd6a48b9a153a4e5d5748, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   sceneNames:
   - Map1
   - Map2
+--- !u!114 &336919360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 336919356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 2712012696
+  _assetId: 0
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
 --- !u!1 &431422757
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,17 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
+using Mirror;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class RandomSceneLoader : MonoBehaviour
+public class RandomSceneLoader : NetworkBehaviour
 {
     public string[] sceneNames; // Add scene names in the Inspector
-
+    
     public void LoadRandomScene()
+    {
+        
+        Debug.Log("Client requesting scene change");
+        CmdChangeScene();
+    }
+
+    [Command(requiresAuthority = false)]
+    void CmdChangeScene()
     {
         if (sceneNames.Length == 0) return;
         string randomScene = sceneNames[Random.Range(0, sceneNames.Length)];
-        SceneManager.LoadScene(randomScene);
+        //SceneManager.LoadScene(randomScene);
+        Debug.Log("Attempting to change scene");
+        FindAnyObjectByType<LobbyManager>().ServerChangeScene(randomScene);
     }
 }
 

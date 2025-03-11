@@ -23,7 +23,7 @@ public class MatchmakingManager : MonoBehaviour
     // Joining an existing lobby
     public void JoinLobby()
     {
-        string lobbyAddress = "10.16.39.17"; // Example address, use real matchmaking data
+        string lobbyAddress = "localhost"; // Example address, use real matchmaking data
         NetworkManager.singleton.networkAddress = lobbyAddress;
         NetworkManager.singleton.StartClient();
         Debug.Log("Joining Lobby...");

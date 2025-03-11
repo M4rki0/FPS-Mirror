@@ -12,7 +12,7 @@ public class GoToGamesList : NetworkBehaviour
     {
         if (isServer)
         {
-            NetworkManager.singleton.ServerChangeScene("GamesList");
+            FindAnyObjectByType<LobbyManager>().ServerChangeScene("GamesList");
         }
         //SceneManager.LoadScene("GamesList");
     }

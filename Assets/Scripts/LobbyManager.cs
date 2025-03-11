@@ -35,6 +35,12 @@ public class LobbyManager : NetworkManager
      Debug.Log("CLIENT CONNECTED");
     }
 
+    public override void OnClientDisconnect()
+    {
+        base.OnClientDisconnect();
+        Debug.Log("CLIENT Disconnect");
+    }
+
     // Update the number of players in the lobby
     private void UpdatePlayerCount()
     {
@@ -61,6 +67,7 @@ public class LobbyManager : NetworkManager
     public override void OnServerDisconnect(NetworkConnectionToClient conn)
     {
         base.OnServerDisconnect(conn);
+        Debug.Log("Server Shutdown");
         UpdatePlayerCount();
     }
 }

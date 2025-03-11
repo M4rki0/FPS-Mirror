@@ -30,10 +30,10 @@ namespace QuickStart
 
         void OnColorChanged(Color _Old, Color _New)
         {
-            playerNameText.color = _New;
-            playerMaterialClone = new Material(GetComponent<Renderer>().material);
+            /*playerNameText.color = _New;
+            playerMaterialClone = new Material(GetComponentsInChildren<Renderer>().material);
             playerMaterialClone.color = _New;
-            GetComponent<Renderer>().material = playerMaterialClone;
+            GetComponent<Renderer>().material = playerMaterialClone;*/
         }
 
         public override void OnStartLocalPlayer()
