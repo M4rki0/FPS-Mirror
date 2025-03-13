@@ -8,6 +8,7 @@ public class ReadyText : MonoBehaviour
 {
     public ReadyUp _readyUp;
     public TMP_Text otherText;
+    public bool hasButtonBeenClicked;
 
     public void Start()
     {
@@ -29,5 +30,14 @@ public class ReadyText : MonoBehaviour
     public void ReadyUpButton()
     {
         _readyUp.GetComponent<Button>();
+    }
+
+    public void ButtonClick()
+    {
+        if (hasButtonBeenClicked)
+        {
+            _readyUp.GetComponent<Button>().onClick;
+        }
     }*/
+    
 }
