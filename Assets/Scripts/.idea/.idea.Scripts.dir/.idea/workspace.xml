@@ -12,7 +12,8 @@
     <setting file="file://$PROJECT_DIR$/../Mirror/Core/NetworkMessages.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/GoToGamesList.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Loby/Player.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://D:/AAAAAAAAAAAAAAAA NewFPS/newFPS/Assets/Scripts/SceneChange.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ReadyUp.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/SceneScript.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -56,6 +57,7 @@
       <workItem from="1741268778007" duration="62000" />
       <workItem from="1741705720627" duration="834000" />
       <workItem from="1741707673841" duration="1054000" />
+      <workItem from="1741885250794" duration="338000" />
     </task>
     <servers />
   </component>
