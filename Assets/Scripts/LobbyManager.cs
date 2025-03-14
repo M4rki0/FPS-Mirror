@@ -47,7 +47,8 @@ public class LobbyManager : NetworkManager
             GameObject joinedPlayer = Instantiate(PlayerTextPrefab, new Vector3(0, 0, 0), Quaternion.identity);
             var lobbyPlayer = joinedPlayer.GetComponent<NetworkedLobbyPlayer>();
             lobbyPlayer.playerName = "Player " + playerCount;
-            lobbyPlayer.connectionId = conn.connectionId;
+            lobbyPlayer.GetComponent<NetworkIdentity>().AssignClientAuthority(conn);
+            //lobbyPlayer.connectionId = conn.connectionId;
             NetworkServer.Spawn(joinedPlayer);
         }
     }
@@ -57,10 +58,10 @@ public class LobbyManager : NetworkManager
         base.OnClientConnect();
         Debug.Log("CLIENT CONNECTED");
 
-        var player = NetworkClient.connection.identity.gameObject;
-        var lobbyPlayer = GetLobbyPlayerByConnectionID((int)NetworkClient.connection.identity.netId);
+        //var player = NetworkClient.connection.identity.gameObject;
+        //var lobbyPlayer = GetLobbyPlayerByConnectionID((int)NetworkClient.connection.identity.netId);
 
-        lobbyPlayer.player = player;
+        //lobbyPlayer.player = player;
     }
     public override void OnClientDisconnect()
     {

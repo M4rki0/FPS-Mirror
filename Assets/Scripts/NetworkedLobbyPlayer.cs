@@ -22,7 +22,8 @@ public class NetworkedLobbyPlayer : NetworkBehaviour
         var container = GameObject.FindWithTag("PlayerNameLobbyContainer").transform;
         transform.SetParent(container, false);
 
-        if (player.GetComponent<PlayerScript>().isLocalPlayer)
+        NetworkIdentity identity = GetComponent<NetworkIdentity>();
+        if (identity.isLocalPlayer)
         {
             var readyUpButton = FindAnyObjectByType<ReadyUp>();
             if (!readyUpButton)
