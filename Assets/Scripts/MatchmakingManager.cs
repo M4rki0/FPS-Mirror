@@ -6,6 +6,8 @@ public class MatchmakingManager : MonoBehaviour
 {
     public Button createLobbyButton;
     public Button joinLobbyButton;
+    public LobbyManager _lobbyManager;
+    public GameObject PlayerTextPrefab;
 
     private void Start()
     {
@@ -27,5 +29,6 @@ public class MatchmakingManager : MonoBehaviour
         NetworkManager.singleton.networkAddress = lobbyAddress;
         NetworkManager.singleton.StartClient();
         Debug.Log("Joining Lobby...");
+        
     }
 }

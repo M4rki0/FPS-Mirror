@@ -188,7 +188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -248,7 +248,7 @@ RectTransform:
   m_GameObject: {fileID: 257473697}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.84975, y: 0.84975, z: 0.84975}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 941910212}
@@ -257,7 +257,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -253, y: 0}
+  m_AnchoredPosition: {x: -215.48, y: -5.2589}
   m_SizeDelta: {x: 343, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &257473699
@@ -737,6 +737,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   createLobbyButton: {fileID: 941910215}
   joinLobbyButton: {fileID: 1953518784}
+  _lobbyManager: {fileID: 0}
+  PlayerTextPrefab: {fileID: 6945346968145089132, guid: e9fff89d016211a49aa1425633fa3f1e, type: 3}
 --- !u!4 &1351416048
 Transform:
   m_ObjectHideFlags: 0
@@ -910,6 +912,10 @@ PrefabInstance:
       propertyPath: playerPrefab
       value: 
       objectReference: {fileID: 223979628983113338, guid: a02b63dd1823b7640b9d594639f154b9, type: 3}
+    - target: {fileID: 1516858732921740734, guid: 547f7b7344717d84c8718b86988aff01, type: 3}
+      propertyPath: PlayerTextPrefab
+      value: 
+      objectReference: {fileID: 6945346968145089132, guid: e9fff89d016211a49aa1425633fa3f1e, type: 3}
     - target: {fileID: 1516858732921740734, guid: 547f7b7344717d84c8718b86988aff01, type: 3}
       propertyPath: spawnPrefabs.Array.size
       value: 1

@@ -144,7 +144,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7708191694242328727}
   - component: {fileID: 8836206938163750555}
-  - component: {fileID: 8232102995491730007}
   - component: {fileID: 7994919059352381629}
   m_Layer: 5
   m_Name: Ready
@@ -180,21 +179,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6275702346380128259}
   m_CullTransparentMesh: 1
---- !u!114 &8232102995491730007
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6275702346380128259}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3cb72fbfd5215e488ec6b81b4ad1f2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isReady: 0
-  buttonText: {fileID: 0}
-  textText: {fileID: 7994919059352381629}
 --- !u!114 &7994919059352381629
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -295,6 +279,7 @@ GameObject:
   - component: {fileID: 5992444818424551161}
   - component: {fileID: 6081379038476714577}
   - component: {fileID: 3853796350193133803}
+  - component: {fileID: 8046872265744882486}
   m_Layer: 5
   m_Name: InGamePlayers
   m_TagString: Untagged
@@ -366,3 +351,22 @@ MonoBehaviour:
   serverOnly: 0
   visibility: 0
   hasSpawned: 0
+--- !u!114 &8046872265744882486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6945346968145089132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e1a042d78d90d547b1360ccf25de944, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  playerName: 
+  isReady: 0
+  nameText: {fileID: 557216453292465652}
+  readyText: {fileID: 7994919059352381629}

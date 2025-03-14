@@ -1,3 +1,4 @@
+using System.Linq;
 using Mirror;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,7 +10,7 @@ public class LobbyManager : NetworkManager
     public TMP_Text playerCountText;
     public Button startGameButton;
     private int maxPlayers = 2;
-    public GameObject PlayerText;
+    public GameObject PlayerTextPrefab;
 
     private int playerCount = 0;
     //public SyncList<string> playerNames = new SyncList<string>();
@@ -35,19 +36,38 @@ public class LobbyManager : NetworkManager
         UpdatePlayerCount();
         RpcNotifyPlayerJoined(playerName);
     }*/
+    public override void OnServerConnect(NetworkConnectionToClient conn)
+    {
+        base.OnServerConnect(conn);
+
+        playerCount++;
+        
+        if (SceneManager.GetActiveScene().name == "Lobby")
+        {
+            GameObject joinedPlayer = Instantiate(PlayerTextPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+            var lobbyPlayer = joinedPlayer.GetComponent<NetworkedLobbyPlayer>();
+            lobbyPlayer.playerName = "Player " + playerCount;
+            lobbyPlayer.connectionId = conn.connectionId;
+            NetworkServer.Spawn(joinedPlayer);
+        }
+    }
 
     public override void OnClientConnect()
     {
         base.OnClientConnect();
         Debug.Log("CLIENT CONNECTED");
-    }
 
+        var player = NetworkClient.connection.identity.gameObject;
+        var lobbyPlayer = GetLobbyPlayerByConnectionID((int)NetworkClient.connection.identity.netId);
+
+        lobbyPlayer.player = player;
+    }
     public override void OnClientDisconnect()
     {
         base.OnClientDisconnect();
         Debug.Log("CLIENT DISCONNECTED");
     }
-
+    
     public override void OnServerDisconnect(NetworkConnectionToClient conn)
     {
         if (playerCount > 0)
@@ -62,7 +82,6 @@ public class LobbyManager : NetworkManager
     }
 
     // Updates the UI with the current player count
-    }
 
     // Starts the game if enough players are present
     /*public void OnStartGame()
@@ -80,5 +99,11 @@ public class LobbyManager : NetworkManager
         Debug.Log($"{playerName} has joined the game!");
         Instantiate(PlayerText);
     }*/
+    
+    public static NetworkedLobbyPlayer GetLobbyPlayerByConnectionID(int connectionId)
+    {
+        var lobbyPlayers = FindObjectsByType<NetworkedLobbyPlayer>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        return lobbyPlayers.FirstOrDefault(lobbyPlayer => lobbyPlayer.connectionId == connectionId);
+    }
 }
 
