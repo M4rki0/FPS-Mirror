@@ -2,17 +2,20 @@ using Mirror;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class LobbyManager : NetworkManager
 {
-    public Text playerCountText;
+    public TMP_Text playerCountText;
     public Button startGameButton;
     private int maxPlayers = 2;
-    private GameObject players;
+    public GameObject PlayerText;
+
+    [SyncVar] private int playerCount = 0;
+    public SyncList<string> playerNames = new SyncList<string>();
 
     void Start()
     {
-        // Button click listener to start the game
         if (startGameButton)
         {
             startGameButton.onClick.AddListener(OnStartGame);
@@ -20,54 +23,68 @@ public class LobbyManager : NetworkManager
         }
     }
 
-    // Called when a player successfully connects to the lobby
+    // Called when a player successfully connects
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
         base.OnServerAddPlayer(conn);
 
-        // Update the player count in the UI
+        playerCount++;
+        string playerName = $"Player {playerCount}";
+        playerNames.Add(playerName);
+
         UpdatePlayerCount();
+        RpcNotifyPlayerJoined(playerName);
     }
 
     public override void OnClientConnect()
     {
-     base.OnClientConnect();
-     Debug.Log("CLIENT CONNECTED");
+        base.OnClientConnect();
+        Debug.Log("CLIENT CONNECTED");
     }
 
     public override void OnClientDisconnect()
     {
         base.OnClientDisconnect();
-        Debug.Log("CLIENT Disconnect");
+        Debug.Log("CLIENT DISCONNECTED");
     }
 
-    // Update the number of players in the lobby
+    public override void OnServerDisconnect(NetworkConnectionToClient conn)
+    {
+        if (playerCount > 0)
+        {
+            playerCount--;
+            if (playerNames.Count > 0) playerNames.RemoveAt(playerNames.Count - 1);
+        }
+
+        base.OnServerDisconnect(conn);
+        Debug.Log("PLAYER DISCONNECTED");
+        UpdatePlayerCount();
+    }
+
+    // Updates the UI with the current player count
     private void UpdatePlayerCount()
     {
         if (SceneManager.GetActiveScene().name == "Lobby")
         {
-            int playerCount = NetworkServer.connections.Count; 
-            players = GameObject.FindWithTag("Players").gameObject; 
-                //= $"Players in Lobby: {playerCount}/{maxPlayers}";
-            // Enable the start button when the max player count is reached
-            //startGameButton.interactable = playerCount >= maxPlayers;
+            playerCountText.text = $"Players in Lobby: {playerCount}/{maxPlayers}";
+            startGameButton.interactable = playerCount >= maxPlayers;
         }
     }
 
-    // Handle starting the game (move to the next scene)
+    // Starts the game if enough players are present
     public void OnStartGame()
     {
-        if (NetworkServer.connections.Count >= maxPlayers)
+        if (playerCount >= maxPlayers)
         {
             ServerChangeScene("GamesList");
         }
     }
 
-    // Override to clean up when players disconnect
-    public override void OnServerDisconnect(NetworkConnectionToClient conn)
+    // Notifies clients when a new player joins
+    [ClientRpc]
+    void RpcNotifyPlayerJoined(string playerName)
     {
-        base.OnServerDisconnect(conn);
-        Debug.Log("Server Shutdown");
-        UpdatePlayerCount();
+        Debug.Log($"{playerName} has joined the game!");
+        Instantiate(PlayerText);
     }
 }
