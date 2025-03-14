@@ -11,20 +11,20 @@ public class LobbyManager : NetworkManager
     private int maxPlayers = 2;
     public GameObject PlayerText;
 
-    [SyncVar] private int playerCount = 0;
-    public SyncList<string> playerNames = new SyncList<string>();
+    private int playerCount = 0;
+    //public SyncList<string> playerNames = new SyncList<string>();
 
     void Start()
     {
         if (startGameButton)
         {
-            startGameButton.onClick.AddListener(OnStartGame);
+            //startGameButton.onClick.AddListener(OnStartGame);
             startGameButton.interactable = false;
         }
     }
 
     // Called when a player successfully connects
-    public override void OnServerAddPlayer(NetworkConnectionToClient conn)
+    /*public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
         base.OnServerAddPlayer(conn);
 
@@ -34,7 +34,7 @@ public class LobbyManager : NetworkManager
 
         UpdatePlayerCount();
         RpcNotifyPlayerJoined(playerName);
-    }
+    }*/
 
     public override void OnClientConnect()
     {
@@ -53,38 +53,32 @@ public class LobbyManager : NetworkManager
         if (playerCount > 0)
         {
             playerCount--;
-            if (playerNames.Count > 0) playerNames.RemoveAt(playerNames.Count - 1);
+            //if (playerNames.Count > 0) playerNames.RemoveAt(playerNames.Count - 1);
         }
 
         base.OnServerDisconnect(conn);
         Debug.Log("PLAYER DISCONNECTED");
-        UpdatePlayerCount();
+        //UpdatePlayerCount();
     }
 
     // Updates the UI with the current player count
-    private void UpdatePlayerCount()
-    {
-        if (SceneManager.GetActiveScene().name == "Lobby")
-        {
-            playerCountText.text = $"Players in Lobby: {playerCount}/{maxPlayers}";
-            startGameButton.interactable = playerCount >= maxPlayers;
-        }
     }
 
     // Starts the game if enough players are present
-    public void OnStartGame()
+    /*public void OnStartGame()
     {
         if (playerCount >= maxPlayers)
         {
             ServerChangeScene("GamesList");
         }
-    }
+    }*/
 
     // Notifies clients when a new player joins
-    [ClientRpc]
+    /*[ClientRpc]
     void RpcNotifyPlayerJoined(string playerName)
     {
         Debug.Log($"{playerName} has joined the game!");
         Instantiate(PlayerText);
-    }
+    }*/
 }
+
