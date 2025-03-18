@@ -58,6 +58,13 @@ namespace QuickStart
             playerColor = _col;
             //uiStuff.statusText = $"{playerName} joined.";
         }
+    
+        [TargetRpc] // This runs only on the specific client
+        public void SetReadyUpButtonPlayer(NetworkConnectionToClient target, GameObject lobbyPlayer)
+        {
+            Debug.Log("Received from server: " + name);
+            FindAnyObjectByType<ReadyUp>().lobbyPlayer = lobbyPlayer.GetComponent<NetworkedLobbyPlayer>();
+        }
 
         void Update()
         {

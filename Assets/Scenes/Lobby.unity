@@ -149,9 +149,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3cb72fbfd5215e488ec6b81b4ad1f2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isReady: 0
+  lobbyPlayer: {fileID: 0}
   buttonText: {fileID: 1664479616}
-  textText: {fileID: 174379370}
 --- !u!4 &164715414
 Transform:
   m_ObjectHideFlags: 0
@@ -263,17 +262,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 170660811}
   m_CullTransparentMesh: 1
---- !u!114 &174379370 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7994919059352381629, guid: e9fff89d016211a49aa1425633fa3f1e, type: 3}
-  m_PrefabInstance: {fileID: 5074834234795126779}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &184929831
 GameObject:
   m_ObjectHideFlags: 0

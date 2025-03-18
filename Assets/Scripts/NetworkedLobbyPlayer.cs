@@ -53,5 +53,14 @@ public class NetworkedLobbyPlayer : NetworkBehaviour
             readyText.text = "(Not Ready)";
             readyText.color  = Color.red;
         }
+
+        Debug.Log("Ready Up: "+isReady);
+        FindAnyObjectByType<ReadyUp>().ServerReadyUp();
+    }
+
+    [Command]
+    public void ReadyUp()
+    {
+        isReady = !isReady;
     }
 }

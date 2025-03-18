@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using QuickStart;
 
 public class LobbyManager : NetworkManager
 {
@@ -25,20 +26,9 @@ public class LobbyManager : NetworkManager
     }
 
     // Called when a player successfully connects
-    /*public override void OnServerAddPlayer(NetworkConnectionToClient conn)
+    public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
         base.OnServerAddPlayer(conn);
-
-        playerCount++;
-        string playerName = $"Player {playerCount}";
-        playerNames.Add(playerName);
-
-        UpdatePlayerCount();
-        RpcNotifyPlayerJoined(playerName);
-    }*/
-    public override void OnServerConnect(NetworkConnectionToClient conn)
-    {
-        base.OnServerConnect(conn);
 
         playerCount++;
         
@@ -47,10 +37,18 @@ public class LobbyManager : NetworkManager
             GameObject joinedPlayer = Instantiate(PlayerTextPrefab, new Vector3(0, 0, 0), Quaternion.identity);
             var lobbyPlayer = joinedPlayer.GetComponent<NetworkedLobbyPlayer>();
             lobbyPlayer.playerName = "Player " + playerCount;
-            lobbyPlayer.GetComponent<NetworkIdentity>().AssignClientAuthority(conn);
             //lobbyPlayer.connectionId = conn.connectionId;
             NetworkServer.Spawn(joinedPlayer);
+            joinedPlayer.GetComponent<NetworkIdentity>().AssignClientAuthority(conn);
+
+            lobbyPlayer.player = conn.identity.gameObject;
+            conn.identity.gameObject.GetComponent<PlayerScript>().SetReadyUpButtonPlayer(conn, joinedPlayer);
         }
+    }
+    
+    public override void OnServerConnect(NetworkConnectionToClient conn)
+    {
+        base.OnServerConnect(conn);
     }
 
     public override void OnClientConnect()
