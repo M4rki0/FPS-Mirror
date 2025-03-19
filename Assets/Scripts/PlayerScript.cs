@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Mirror;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace QuickStart
 {
@@ -22,6 +23,7 @@ namespace QuickStart
         public Color playerColor = Color.white;
 
         private UIStuff uiStuff;
+        public bool isCurrentScene;
 
         void OnNameChanged(string _Old, string _New)
         {
@@ -174,6 +176,14 @@ namespace QuickStart
         public void CmdChangeActiveWeapon(int newIndex)
         {
             activeWeaponSynced = newIndex;
+        }
+
+        public void DisableShooting()
+        {
+            if (SceneManager.GetActiveScene("Lobby"))
+            {
+                isCurrentScene = P
+            }
         }
     }
 }
