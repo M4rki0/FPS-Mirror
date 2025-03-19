@@ -92,17 +92,21 @@ namespace QuickStart
 
                 CmdChangeActiveWeapon(selectedWeaponLocal);
             }
-            
-            if (Input.GetButtonDown("Fire1") ) //Fire1 is mouse 1st click
-            {
-                if (activeWeapon && Time.time > weaponCooldownTime && activeWeapon.weaponAmmo > 0)
+
+            //if (SceneManager.GetActiveScene("Lobby"))
+            //{
+                //isCurrentScene = !enabled;
+                if (Input.GetButtonDown("Fire1")) //Fire1 is mouse 1st click
                 {
-                    weaponCooldownTime = Time.time + activeWeapon.weaponCooldown;
-                    activeWeapon.weaponAmmo -= 1;
-                    //uiStuff.UIAmmo(activeWeapon.weaponAmmo);
-                    CmdShootRay();
+                    if (activeWeapon && Time.time > weaponCooldownTime && activeWeapon.weaponAmmo > 0)
+                    {
+                        weaponCooldownTime = Time.time + activeWeapon.weaponCooldown;
+                        activeWeapon.weaponAmmo -= 1;
+                        //uiStuff.UIAmmo(activeWeapon.weaponAmmo);
+                        CmdShootRay();
+                    }
                 }
-            }
+            //}
         }
         
         [Command]
@@ -176,14 +180,6 @@ namespace QuickStart
         public void CmdChangeActiveWeapon(int newIndex)
         {
             activeWeaponSynced = newIndex;
-        }
-
-        public void DisableShooting()
-        {
-            if (SceneManager.GetActiveScene("Lobby"))
-            {
-                isCurrentScene = P
-            }
         }
     }
 }
