@@ -7,6 +7,10 @@ public class GameManager : MonoBehaviour
     [Header("Player Loadout")]
     public GunSelectionSystem.GunType selectedGun;
     public GunSelectionSystem.PerkType selectedPerk;
+    public GameObject ARButton;
+    public GameObject SMGButton;
+    public GameObject SniperButton;
+    public GameObject ShotgunButton;
 
     private void Awake()
     {
@@ -33,12 +37,14 @@ public class GameManager : MonoBehaviour
     // Method to retrieve the selected gun (if needed)
     public GunSelectionSystem.GunType GetSelectedGun()
     {
+        GameObject.FindWithTag("Guns");
         return selectedGun;
     }
 
     // Method to retrieve the selected perk (if needed)
     public GunSelectionSystem.PerkType GetSelectedPerk()
     {
+        GameObject.FindWithTag("Perks");
         return selectedPerk;
     }
 }

@@ -1,50 +1,33 @@
-using Mirror;
 using UnityEngine;
 
-public class PlayerSetup : NetworkBehaviour
+public class PlayerSetup : MonoBehaviour
 {
-    [SyncVar] public GunSelectionSystem.GunType selectedGun;
-
     public GameObject arPrefab;
     public GameObject smgPrefab;
     public GameObject sniperPrefab;
     public GameObject shotgunPrefab;
 
-    public override void OnStartLocalPlayer()
+    private void Start()
     {
-        base.OnStartLocalPlayer();
-        
-        // Tell the server what gun this player should have
-        CmdSetGun(GameManager.Instance.GetSelectedGun());
-    }
-
-    [Command]
-    void CmdSetGun(GunSelectionSystem.GunType gun)
-    {
-        selectedGun = gun; // Sync the gun across the network
-        RpcSetupGun(); // Update the gun for all clients
-    }
-
-    [ClientRpc]
-    void RpcSetupGun()
-    {
-        SetupGun();
-    }
-
-    void SetupGun()
-    {
-        GameObject gunToSpawn = null;
-        switch (selectedGun)
-        {
-            case GunSelectionSystem.GunType.AR: gunToSpawn = arPrefab; break;
-            case GunSelectionSystem.GunType.SMG: gunToSpawn = smgPrefab; break;
-            case GunSelectionSystem.GunType.Sniper: gunToSpawn = sniperPrefab; break;
-            case GunSelectionSystem.GunType.Shotgun: gunToSpawn = shotgunPrefab; break;
-        }
+        // Get the selected gun from the persistent GameManager
+        var selectedGun = GameManager.Instance.GetSelectedGun();
+        GameObject gunToSpawn = GetGunPrefab(selectedGun);
 
         if (gunToSpawn != null)
         {
             Instantiate(gunToSpawn, transform.position, transform.rotation, transform);
+        }
+    }
+
+    private GameObject GetGunPrefab(GunSelectionSystem.GunType gunType)
+    {
+        switch (gunType)
+        {
+            case GunSelectionSystem.GunType.AR: return arPrefab;
+            case GunSelectionSystem.GunType.SMG: return smgPrefab;
+            case GunSelectionSystem.GunType.Sniper: return sniperPrefab;
+            case GunSelectionSystem.GunType.Shotgun: return shotgunPrefab;
+            default: return null;
         }
     }
 }

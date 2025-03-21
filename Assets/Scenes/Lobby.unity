@@ -457,6 +457,8 @@ GameObject:
   - component: {fileID: 436966649}
   - component: {fileID: 436966648}
   - component: {fileID: 436966650}
+  - component: {fileID: 436966652}
+  - component: {fileID: 436966651}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -478,6 +480,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectedGun: 0
   selectedPerk: 0
+  ARButton: {fileID: 5453162403351261404, guid: a6b3365d7fbe8614e9dd5824afef4b7b, type: 3}
+  SMGButton: {fileID: 499626497213391799, guid: 768627f5a32dda94d8fad37a2077dcab, type: 3}
+  SniperButton: {fileID: 3060286382511771713, guid: 52e444af0b0ff0a48991bb9d173c8f20, type: 3}
+  ShotgunButton: {fileID: 5377220275482864879, guid: c52e9d5877ea5ee4283b7a83fc9b39ce, type: 3}
 --- !u!4 &436966647
 Transform:
   m_ObjectHideFlags: 0
@@ -540,6 +546,46 @@ MonoBehaviour:
   serverOnly: 0
   visibility: 0
   hasSpawned: 0
+--- !u!114 &436966651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 436966645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f816e670475552459f916c1b7fbc618, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gunButtons:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  perkButtons:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
+  selectedColor: {r: 0, g: 1, b: 0, a: 1}
+--- !u!114 &436966652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 436966645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7c3ac0247baaf1498c6557f43ce1bdb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedPerk: 0
+  perkDuration: 30
+  teleportRadius: 10
+  cooldownTime: 10
 --- !u!1 &492903988
 GameObject:
   m_ObjectHideFlags: 0

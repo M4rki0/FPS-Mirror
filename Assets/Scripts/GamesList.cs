@@ -9,7 +9,7 @@ namespace QuickStart
     public class GamesList : MonoBehaviour
     {
         public Canvas canvas;
-        
+
         public void DisableCanvas()
         {
             canvas.gameObject.SetActive(false);

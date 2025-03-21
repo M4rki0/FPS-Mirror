@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Players
   - PlayerNameLobbyContainer
+  - Guns
+  - Perks
   layers:
   - Default
   - TransparentFX

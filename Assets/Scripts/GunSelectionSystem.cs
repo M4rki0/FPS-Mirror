@@ -107,7 +107,7 @@ public class GunSelectionSystem : MonoBehaviour
     }
         
     }*/
-    public enum GunType { Sniper, SMG, AR, Shotgun }
+    public enum GunType { SMG=0, Shotgun=1, Sniper=2, AR=3 }
     public enum PerkType { x2Dmg, AimAssist, Teleportation, lessDmg }
 
     private GunType selectedGun;
