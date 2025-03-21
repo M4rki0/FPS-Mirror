@@ -173,6 +173,7 @@ MonoBehaviour:
   floatingInfo: {fileID: 382846496717217017}
   playerName: 
   playerColor: {r: 1, g: 1, b: 1, a: 1}
+  isCurrentScene: 0
   weaponArray:
   - {fileID: 0}
   - {fileID: 2272078351015081602}
@@ -218,7 +219,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 382846496717217017}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.973249, z: 0.22975294, w: 0}
+  m_LocalRotation: {x: -0.0075490456, y: 0.897083, z: 0.015337804, w: 0.44153127}
   m_LocalPosition: {x: 0, y: -0.3, z: 0.6}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
@@ -460,7 +461,7 @@ MonoBehaviour:
   weaponSpeed: 5
   weaponLife: 3
   weaponCooldown: 1
-  weaponAmmo: 5
+  weaponAmmo: 4
   weaponBullet: {fileID: 4044575405335378176, guid: 6f0240efada271548807015bf6657778, type: 3}
   weaponFirePosition: {fileID: 9027225741279387824}
 --- !u!1 &6139019035470700881
@@ -593,7 +594,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Player945
+  m_text: Player288
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

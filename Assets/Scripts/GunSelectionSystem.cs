@@ -1,3 +1,4 @@
+using Mirror;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -106,8 +107,8 @@ public class GunSelectionSystem : MonoBehaviour
     }
         
     }*/
-    public enum GunType { AR, SMG, Sniper, Shotgun }
-    public enum PerkType { Teleport, AimAssist, x2Dmg, lessDmg }
+    public enum GunType { Sniper, SMG, AR, Shotgun }
+    public enum PerkType { x2Dmg, AimAssist, Teleportation, lessDmg }
 
     private GunType selectedGun;
     private PerkType selectedPerk;
@@ -141,9 +142,16 @@ public class GunSelectionSystem : MonoBehaviour
     // Method to confirm selection and pass data to GameManager
     public void ConfirmSelection()
     {
+        if (GameManager.Instance == null)
+        {
+            Debug.LogError("GameManager instance is NULL");
+            return;
+        }
         GameManager.Instance.SetPlayerLoadout(selectedGun, selectedPerk);
         Debug.Log("Gun and Perk selection confirmed. Moving to game...");
         // Load the game scene here
+
+        NetworkManager.singleton.StartClient();
     }
 
     // Helper method to update button colors

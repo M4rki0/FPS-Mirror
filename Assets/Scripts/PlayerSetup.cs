@@ -1,20 +1,38 @@
-using System.Collections;
-using System.Collections.Generic;
+using Mirror;
 using UnityEngine;
 
-public class PlayerSetup : MonoBehaviour
+public class PlayerSetup : NetworkBehaviour
 {
+    [SyncVar] public GunSelectionSystem.GunType selectedGun;
+
     public GameObject arPrefab;
     public GameObject smgPrefab;
     public GameObject sniperPrefab;
     public GameObject shotgunPrefab;
 
-    private void Start()
+    public override void OnStartLocalPlayer()
     {
-        // Get the selected gun from the GameManager
-        var selectedGun = GameManager.Instance.GetSelectedGun();
+        base.OnStartLocalPlayer();
+        
+        // Tell the server what gun this player should have
+        CmdSetGun(GameManager.Instance.GetSelectedGun());
+    }
 
-        // Spawn the selected gun
+    [Command]
+    void CmdSetGun(GunSelectionSystem.GunType gun)
+    {
+        selectedGun = gun; // Sync the gun across the network
+        RpcSetupGun(); // Update the gun for all clients
+    }
+
+    [ClientRpc]
+    void RpcSetupGun()
+    {
+        SetupGun();
+    }
+
+    void SetupGun()
+    {
         GameObject gunToSpawn = null;
         switch (selectedGun)
         {
@@ -30,4 +48,3 @@ public class PlayerSetup : MonoBehaviour
         }
     }
 }
-

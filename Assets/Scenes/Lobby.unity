@@ -1292,9 +1292,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1980436437}
-        m_TargetAssemblyTypeName: GoToGamesList, Assembly-CSharp
-        m_MethodName: GoScene
+      - m_Target: {fileID: 1980436439}
+        m_TargetAssemblyTypeName: RandomSceneLoader, Assembly-CSharp
+        m_MethodName: LoadRandomScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1484,8 +1484,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1980436436}
-  - component: {fileID: 1980436437}
   - component: {fileID: 1980436438}
+  - component: {fileID: 1980436439}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -1508,21 +1508,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1980436437
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1980436435}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afff26107659f7948b39012dc56cefa3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
 --- !u!114 &1980436438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1540,6 +1525,23 @@ MonoBehaviour:
   serverOnly: 0
   visibility: 0
   hasSpawned: 0
+--- !u!114 &1980436439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1980436435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4ec1dce93dcd6a48b9a153a4e5d5748, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  sceneNames:
+  - Map1
 --- !u!1001 &5074834234795126779
 PrefabInstance:
   m_ObjectHideFlags: 0
