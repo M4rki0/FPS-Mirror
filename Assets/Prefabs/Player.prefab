@@ -53,10 +53,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73dbca4dd4ed31146b3b7fa906ff3200, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arPrefab: {fileID: 5684131721993595100, guid: 8f8b80af3e5652d43a12af2a7693112e, type: 3}
-  smgPrefab: {fileID: 306306269906387295, guid: acca5f13bee4e2649a626d2cf6cebb7c, type: 3}
-  sniperPrefab: {fileID: 3936134217170879942, guid: ff490040310add845984cb099e7e51f7, type: 3}
-  shotgunPrefab: {fileID: 2340282148845250773, guid: 17c1c0f5f6241344bb5d601a8b53ede6, type: 3}
 --- !u!136 &6733547232193588840
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -174,11 +170,8 @@ MonoBehaviour:
   playerName: 
   playerColor: {r: 1, g: 1, b: 1, a: 1}
   isCurrentScene: 0
-  weaponArray:
-  - {fileID: 0}
-  - {fileID: 2272078351015081602}
-  - {fileID: 4029087449225712892}
-  activeWeaponSynced: 0
+  selectedGun: 0
+  guns: []
 --- !u!114 &9062634279151511528
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -219,7 +212,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 382846496717217017}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.033005167, y: 0.48091406, z: 0.018120311, w: 0.8759589}
+  m_LocalRotation: {x: -0.0075490456, y: 0.897083, z: 0.015337804, w: 0.44153127}
   m_LocalPosition: {x: 0, y: -0.3, z: 0.6}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
@@ -379,7 +372,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5455204748784141008
 Transform:
   m_ObjectHideFlags: 0
@@ -594,7 +587,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Player284
+  m_text: Player210
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

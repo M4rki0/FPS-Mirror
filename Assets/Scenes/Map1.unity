@@ -3983,7 +3983,6 @@ GameObject:
   - component: {fileID: 1048019369}
   - component: {fileID: 1048019368}
   - component: {fileID: 1048019367}
-  - component: {fileID: 1048019366}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -3991,30 +3990,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!114 &1048019366
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1048019365}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f816e670475552459f916c1b7fbc618, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gunButtons:
-  - {fileID: 565262644}
-  - {fileID: 155628519}
-  - {fileID: 1582037954}
-  - {fileID: 678751688}
-  perkButtons:
-  - {fileID: 1858419085}
-  - {fileID: 892880762}
-  - {fileID: 1986291433}
-  - {fileID: 1286297321}
-  normalColor: {r: 1, g: 1, b: 1, a: 1}
-  selectedColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!114 &1048019367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7173,7 +7148,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1048019366}
+      - m_Target: {fileID: 2119779445}
         m_TargetAssemblyTypeName: GunSelectionSystem, Assembly-CSharp
         m_MethodName: ConfirmSelection
         m_Mode: 1

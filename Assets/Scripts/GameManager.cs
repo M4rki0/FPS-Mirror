@@ -1,12 +1,16 @@
+using Mirror;
+using QuickStart;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-
-    [Header("Player Loadout")]
+    
+    public GameObject localPlayer;
+    
+    [Header("Player Loadout")] 
     public GunSelectionSystem.GunType selectedGun;
-    public GunSelectionSystem.PerkType selectedPerk;
+    public PerkSystem.PerkType selectedPerk;
     public GameObject ARButton;
     public GameObject SMGButton;
     public GameObject SniperButton;
@@ -26,13 +30,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // Method to set the player's loadout
-    public void SetPlayerLoadout(GunSelectionSystem.GunType gun, GunSelectionSystem.PerkType perk)
-    {
-        selectedGun = gun;
-        selectedPerk = perk;
-        Debug.Log($"Loadout set: Gun = {gun}, Perk = {perk}");
-    }
 
     // Method to retrieve the selected gun (if needed)
     public GunSelectionSystem.GunType GetSelectedGun()
@@ -42,7 +39,7 @@ public class GameManager : MonoBehaviour
     }
 
     // Method to retrieve the selected perk (if needed)
-    public GunSelectionSystem.PerkType GetSelectedPerk()
+    public PerkSystem.PerkType GetSelectedPerk()
     {
         GameObject.FindWithTag("Perks");
         return selectedPerk;

@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using Mirror;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 namespace QuickStart
 {
@@ -21,12 +19,19 @@ namespace QuickStart
 
         [SyncVar(hook = nameof(OnColorChanged))]
         public Color playerColor = Color.white;
+        
+        
 
         private UIStuff uiStuff;
         public bool isCurrentScene;
 
+        [SyncVar(hook = nameof(OnSelectedGunChanged))]
+        public GunSelectionSystem.GunType selectedGun;
+        public GameObject[] guns;
+
         void OnNameChanged(string _Old, string _New)
         {
+            playerName = _New;
             playerNameText.text = playerName;
         }
 
@@ -36,6 +41,13 @@ namespace QuickStart
             playerMaterialClone = new Material(GetComponentsInChildren<Renderer>().material);
             playerMaterialClone.color = _New;
             GetComponent<Renderer>().material = playerMaterialClone;*/
+        }
+
+        void OnSelectedGunChanged(GunSelectionSystem.GunType oldGun, GunSelectionSystem.GunType newGun)
+        {
+            Debug.Log("ACTIVATING GUN: " + newGun);
+            selectedGun = newGun;
+            ActivateGun(newGun);
         }
 
         public override void OnStartLocalPlayer()
@@ -49,6 +61,7 @@ namespace QuickStart
             string name = "Player" + Random.Range(100, 999);
             Color color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
             CmdSetupPlayer(name, color);
+            GameManager.Instance.localPlayer = gameObject;
             sceneScript.playerScript = this;
         }
 
@@ -85,12 +98,12 @@ namespace QuickStart
 
             if (Input.GetAxis("Mouse ScrollWheel") > 0) //Fire2 is mouse 2nd click and left alt
             {
-                selectedWeaponLocal += 1;
+                selectedGun += 1;
 
-                if (selectedWeaponLocal > weaponArray.Length) 
-                    selectedWeaponLocal = 1; 
+                if ((int)selectedGun > guns.Length) 
+                    selectedGun = 0; 
 
-                CmdChangeActiveWeapon(selectedWeaponLocal);
+                //CmdChangeActiveWeapon((int)selectedGun);
             }
 
             //if (SceneManager.GetActiveScene("Lobby"))
@@ -107,6 +120,34 @@ namespace QuickStart
                     }
                 }
             //}
+        }
+        
+        public void ActivateGun(GunSelectionSystem.GunType gunType)
+        {
+            foreach (var gun in guns)
+            {
+                gun.SetActive(false);
+            }
+        
+            guns[(int)gunType].SetActive(true);
+        }
+
+        public void SetLocalLoadout(GunSelectionSystem.GunType gun, PerkSystem.PerkType perk)
+        {
+            OnSelectedGunChanged(selectedGun, gun);
+            GetComponent<PerkSystem>().selectedPerk = perk;
+            SetPlayerLoadout(gun,perk);
+        }
+        // Method to set the player's loadout
+        [Command]
+        public void SetPlayerLoadout(GunSelectionSystem.GunType gun, PerkSystem.PerkType perk)
+        {
+            Debug.Log($"SetPlayerLoadout() - Received: Gun = {gun}, Perk = {perk}");
+
+            selectedGun = gun;
+            GetComponent<PerkSystem>().selectedPerk = perk;
+        
+            Debug.Log($"GameManager After Set - Gun = {selectedGun}, Perk = {perk}");
         }
         
         [Command]
@@ -130,19 +171,8 @@ namespace QuickStart
         {
             //allow all players to run this
             sceneScript = GameObject.FindObjectOfType<SceneScript>();
-            // disable all weapons
-            foreach (var item in weaponArray)
-                if (item != null)
-                    item.SetActive(false);
-            
             //allows all players to run this
             sceneScript = GameObject.Find("GameManager").GetComponent<SceneReference>().sceneScript;
-            
-            if (selectedWeaponLocal < weaponArray.Length && weaponArray[selectedWeaponLocal] != null)
-            {
-                activeWeapon = weaponArray[selectedWeaponLocal].GetComponent<Weapon>();
-                //uiStuff.UIAmmo(activeWeapon.weaponAmmo);
-            }
         }
         
         [Command]
@@ -152,34 +182,15 @@ namespace QuickStart
                 uiStuff.statusText = $"{playerName} says hello {Random.Range(10, 99)}";
         }
         
-        private int selectedWeaponLocal = 1;
-        public GameObject[] weaponArray;
-
-        [SyncVar(hook = nameof(OnWeaponChanged))]
-        public int activeWeaponSynced = 1;
-
         void OnWeaponChanged(int _Old, int _New)
         {
-            // disable old weapon
-            // in range and not null
-            if (0 < _Old && _Old < weaponArray.Length && weaponArray[_Old] != null)
-                weaponArray[_Old].SetActive(false);
-    
-            // enable new weapon
-            // in range and not null
-            if (0 < _New && _New < weaponArray.Length && weaponArray[_New] != null)
-            {
-                weaponArray[_New].SetActive(true);
-                activeWeapon = weaponArray[activeWeaponSynced].GetComponent<Weapon>();
-                if (isLocalPlayer)
-                   uiStuff.UIAmmo(activeWeapon.weaponAmmo);
-            }
+            ActivateGun((GunSelectionSystem.GunType)_New);
         }
 
         [Command]
         public void CmdChangeActiveWeapon(int newIndex)
         {
-            activeWeaponSynced = newIndex;
+            selectedGun = (GunSelectionSystem.GunType)newIndex;
         }
     }
 }

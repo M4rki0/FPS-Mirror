@@ -17,12 +17,12 @@ public class PlayerHealth : MonoBehaviour
         // Check if the player has the ÷2 damage perk
         var selectedPerk = GameManager.Instance.GetSelectedPerk();
 
-        if (selectedPerk == GunSelectionSystem.PerkType.lessDmg)
+        if (selectedPerk == PerkSystem.PerkType.HalfDamage)
         {
             damage /= 2; // Reduce damage by half
         }
         
-        if (selectedPerk == GunSelectionSystem.PerkType.x2Dmg)
+        if (selectedPerk == PerkSystem.PerkType.DoubleDamage)
         {
             damage *= 2; // Multiply damage by 2
         }

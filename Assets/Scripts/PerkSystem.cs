@@ -1,11 +1,13 @@
 using System.Collections;
+using Mirror;
 using UnityEngine;
 
-public class PerkSystem : MonoBehaviour
+public class PerkSystem : NetworkBehaviour
 {
-    public enum PerkType { DoubleDamage, HalfDamage, Teleportation, AimAssist }
+    public enum PerkType { DoubleDamage=0, HalfDamage=1, Teleportation=2, AimAssist=3 }
 
     [Header("Perk Settings")]
+    [SyncVar]
     public PerkType selectedPerk;
     public float perkDuration = 30f; // Duration for x2 damage, ÷2 damage, and aim assist
     public float teleportRadius = 10f; // Radius for teleportation

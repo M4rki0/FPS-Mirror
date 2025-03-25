@@ -1,117 +1,14 @@
 using Mirror;
+using QuickStart;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class GunSelectionSystem : MonoBehaviour
 {
-    /*public enum GunType { AR, SMG, Sniper, Shotgun }
-
-    [Header("UI References - Guns")]
-    public Button arButton;
-    public Button smgButton;
-    public Button sniperButton;
-    public Button shotgunButton;
-
-    [Header("UI References - Perks")]
-    public Button doubleDamageButton;
-    public Button halfDamageButton;
-    public Button teleportationButton;
-    public Button aimAssistButton;
-
-    [Header("Other UI")]
-    public Button startGameButton;
-
-    [Header("Selected Options")]
-    public GunType selectedGun;
-    public PerkSystem.PerkType selectedPerk;
-
-    private void Start()
-    {
-        // Assign button listeners for gun selection
-        arButton.onClick.AddListener(() => SelectGun(GunType.AR));
-        smgButton.onClick.AddListener(() => SelectGun(GunType.SMG));
-        sniperButton.onClick.AddListener(() => SelectGun(GunType.Sniper));
-        shotgunButton.onClick.AddListener(() => SelectGun(GunType.Shotgun));
-
-        // Assign button listeners for perk selection
-        doubleDamageButton.onClick.AddListener(() => SelectPerk(PerkSystem.PerkType.DoubleDamage));
-        halfDamageButton.onClick.AddListener(() => SelectPerk(PerkSystem.PerkType.HalfDamage));
-        teleportationButton.onClick.AddListener(() => SelectPerk(PerkSystem.PerkType.Teleportation));
-        aimAssistButton.onClick.AddListener(() => SelectPerk(PerkSystem.PerkType.AimAssist));
-
-        // Assign the start game button listener
-        startGameButton.onClick.AddListener(StartGame);
-    }
-
-    public void SelectGun(string gunString)
-    {
-        selectedGun = gun;
-        Debug.Log($"Gun Selected: {gun}");
-        HighlightSelectedGun(gun);
-    }
-
-    public void SelectPerk(PerkSystem.PerkType perk)
-    {
-        selectedPerk = perk;
-        Debug.Log($"Perk Selected: {perk}");
-        HighlightSelectedPerk(perk);
-    }
-
-    private void HighlightSelectedGun(GunType gun)
-    {
-        // Add your visual feedback logic here (e.g., change button color or size)
-        ResetGunButtonHighlights();
-        switch (gun)
-        {
-            case GunType.AR: arButton.GetComponent<Image>().color = Color.green; break;
-            case GunType.SMG: smgButton.GetComponent<Image>().color = Color.green; break;
-            case GunType.Sniper: sniperButton.GetComponent<Image>().color = Color.green; break;
-            case GunType.Shotgun: shotgunButton.GetComponent<Image>().color = Color.green; break;
-        }
-    }
-
-    private void HighlightSelectedPerk(PerkSystem.PerkType perk)
-    {
-        // Add your visual feedback logic here (e.g., change button color or size)
-        ResetPerkButtonHighlights();
-        switch (perk)
-        {
-            case PerkSystem.PerkType.DoubleDamage: doubleDamageButton.GetComponent<Image>().color = Color.green; break;
-            case PerkSystem.PerkType.HalfDamage: halfDamageButton.GetComponent<Image>().color = Color.green; break;
-            case PerkSystem.PerkType.Teleportation: teleportationButton.GetComponent<Image>().color = Color.green; break;
-            case PerkSystem.PerkType.AimAssist: aimAssistButton.GetComponent<Image>().color = Color.green; break;
-        }
-    }
-
-    private void ResetGunButtonHighlights()
-    {
-        arButton.GetComponent<Image>().color = Color.white;
-        smgButton.GetComponent<Image>().color = Color.white;
-        sniperButton.GetComponent<Image>().color = Color.white;
-        shotgunButton.GetComponent<Image>().color = Color.white;
-    }
-
-    private void ResetPerkButtonHighlights()
-    {
-        doubleDamageButton.GetComponent<Image>().color = Color.white;
-        halfDamageButton.GetComponent<Image>().color = Color.white;
-        teleportationButton.GetComponent<Image>().color = Color.white;
-        aimAssistButton.GetComponent<Image>().color = Color.white;
-    }
-
-    private void StartGame()
-    {
-        Debug.Log($"Starting game with Gun: {selectedGun}, Perk: {selectedPerk}");
-        GameManager.Instance.SetPlayerLoadout(selectedGun, selectedPerk);
-        UnityEngine.SceneManagement.SceneManager.LoadScene("GameScene");
-    }
-        
-    }*/
     public enum GunType { SMG=0, Shotgun=1, Sniper=2, AR=3 }
-    public enum PerkType { x2Dmg, AimAssist, Teleportation, lessDmg }
 
     private GunType selectedGun;
-    private PerkType selectedPerk;
+    private PerkSystem.PerkType selectedPerk;
 
     [Header("Gun Buttons")]
     public Button[] gunButtons; // Assign in Inspector (AR, SMG, Sniper, Shotgun)
@@ -125,15 +22,17 @@ public class GunSelectionSystem : MonoBehaviour
     // Method to be called by UI Buttons when selecting a gun
     public void SelectGun(int gunIndex)
     {
-        selectedGun = (GunType)gunIndex;
-        Debug.Log($"Gun selected: {selectedGun}");
+        Debug.Log($"SelectGun() CALLED with index {gunIndex}");
 
-        UpdateButtonHighlights(gunButtons, gunIndex);
+        selectedGun = (GunType)gunIndex;
+        Debug.Log($"SelectGun() - Selected: {selectedGun}");
     }
+
+
 
     public void SelectPerk(int perkIndex)
     {
-        selectedPerk = (PerkType)perkIndex;
+        selectedPerk = (PerkSystem.PerkType)perkIndex;
         Debug.Log($"Perk selected: {selectedPerk}");
 
         UpdateButtonHighlights(perkButtons, perkIndex);
@@ -147,12 +46,29 @@ public class GunSelectionSystem : MonoBehaviour
             Debug.LogError("GameManager instance is NULL");
             return;
         }
-        GameManager.Instance.SetPlayerLoadout(selectedGun, selectedPerk);
-        Debug.Log("Gun and Perk selection confirmed. Moving to game...");
-        // Load the game scene here
 
-        NetworkManager.singleton.StartClient();
+        // Force set values to test if the issue is in selection updating
+        //selectedGun = GunType.AR; // Replace with a gun you DIDN'T pick
+        //selectedPerk = PerkType.lessDmg; // Replace with a perk you DIDN'T pick
+
+       // Debug.Log($"ConfirmSelection() - Force-setting Gun: {selectedGun}, Perk: {selectedPerk}");
+
+       Debug.Log($"Attempting set loadout: Gun = {selectedGun}, Perk = {selectedPerk}");
+       GameManager.Instance.localPlayer.GetComponent<PlayerScript>().SetLocalLoadout(selectedGun, selectedPerk);
+
+        //NetworkManager.singleton.StartClient();
     }
+    
+    /*public void ConfirmSelection()
+    {
+        Debug.Log($"ConfirmSelection() - Initial Values: Gun = {selectedGun}, Perk = {selectedPerk}");
+    
+        if (GameManager.Instance == null)
+        {
+            Debug.LogError("GameManager instance is NULL");
+            return;
+        }
+    }*/
 
     // Helper method to update button colors
     private void UpdateButtonHighlights(Button[] buttons, int selectedIndex)
