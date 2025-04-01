@@ -6,12 +6,13 @@ public class Weapon : NetworkBehaviour
     public float damage = 25f;
     public float range = 100f;
     public Camera fpsCam;
-    public float weaponCooldown;
+    public float cooldown;
     public float weaponAmmo;
 
     [SerializeField] private LayerMask hitMask;
-    public Object weaponBullet;
-    public object weaponFirePosition;
+    public GameObject bullet;
+    public GameObject firePosition;
+    public float bulletSpeed;
 
     [Command]
     private void CmdShoot()

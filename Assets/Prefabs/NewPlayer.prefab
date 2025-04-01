@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 9062634279151511528}
   - component: {fileID: 3929060764150318721}
   - component: {fileID: 7568326717465996573}
-  - component: {fileID: 5170411212835263735}
   m_Layer: 0
   m_Name: NewPlayer
   m_TagString: Untagged
@@ -147,6 +146,8 @@ MonoBehaviour:
   syncInterval: 0
   playerNameText: {fileID: 8408038163556375250, guid: 710a9f9386e4d7242baf8a9d94b0f55b, type: 3}
   floatingInfo: {fileID: 382846496717217017, guid: 710a9f9386e4d7242baf8a9d94b0f55b, type: 3}
+  weapon: {fileID: 0}
+  ammoManager: {fileID: 0}
   playerName: 
   playerColor: {r: 1, g: 1, b: 1, a: 1}
   isCurrentScene: 0
@@ -175,21 +176,6 @@ MonoBehaviour:
   perkDuration: 30
   teleportRadius: 10
   cooldownTime: 10
---- !u!114 &5170411212835263735
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 223979628983113338}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6072e438b703c5a42b0b4d0fbf81a72c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentHealth: 0
-  maxHealth: 100
-  damage: 0
 --- !u!1 &382846496717217017
 GameObject:
   m_ObjectHideFlags: 0
@@ -436,6 +422,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 693421369660617105}
     m_Modifications:
+    - target: {fileID: -815111171339158518, guid: 8f8b80af3e5652d43a12af2a7693112e, type: 3}
+      propertyPath: _assetId
+      value: 3896645580
+      objectReference: {fileID: 0}
+    - target: {fileID: 829358424563529780, guid: 8f8b80af3e5652d43a12af2a7693112e, type: 3}
+      propertyPath: bulletSpeed
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 5019762079327154790, guid: 8f8b80af3e5652d43a12af2a7693112e, type: 3}
       propertyPath: m_LocalScale.x
       value: 6
@@ -496,7 +490,8 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -815111171339158518, guid: 8f8b80af3e5652d43a12af2a7693112e, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -579,7 +574,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 6360161256891566040, guid: ff490040310add845984cb099e7e51f7, type: 3}
+      propertyPath: bulletSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8484587590873351918, guid: ff490040310add845984cb099e7e51f7, type: 3}
+      propertyPath: _assetId
+      value: 3896645580
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 8484587590873351918, guid: ff490040310add845984cb099e7e51f7, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -740,7 +744,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 5370136438007554420, guid: acca5f13bee4e2649a626d2cf6cebb7c, type: 3}
+      propertyPath: _assetId
+      value: 3896645580
+      objectReference: {fileID: 0}
+    - target: {fileID: 7748743768739800978, guid: acca5f13bee4e2649a626d2cf6cebb7c, type: 3}
+      propertyPath: bulletSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 5370136438007554420, guid: acca5f13bee4e2649a626d2cf6cebb7c, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -763,6 +776,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 693421369660617105}
     m_Modifications:
+    - target: {fileID: 50808928847374552, guid: 17c1c0f5f6241344bb5d601a8b53ede6, type: 3}
+      propertyPath: bulletSpeed
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 2340282148845250773, guid: 17c1c0f5f6241344bb5d601a8b53ede6, type: 3}
       propertyPath: m_Name
       value: Shotgun
@@ -823,7 +840,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 7393663782634313286, guid: 17c1c0f5f6241344bb5d601a8b53ede6, type: 3}
+      propertyPath: _assetId
+      value: 3896645580
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 7393663782634313286, guid: 17c1c0f5f6241344bb5d601a8b53ede6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

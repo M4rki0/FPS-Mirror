@@ -26,6 +26,8 @@ public class GunSelectionSystem : MonoBehaviour
 
         selectedGun = (GunType)gunIndex;
         Debug.Log($"SelectGun() - Selected: {selectedGun}");
+        
+        UpdateButtonHighlights(gunButtons, gunIndex);
     }
 
 

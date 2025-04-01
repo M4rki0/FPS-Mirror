@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using QuickStart;
 using TMPro;
 using UnityEngine;
 
@@ -9,17 +10,17 @@ public class AmmoManager : MonoBehaviour
     private int currentWeaponIndex = 0; // Track currently selected weapon
     public WeaponData currentWeapon;
     public int currentAmmo;
-    public TMP_Text ammoText;
+    private TMP_Text ammoText;
     private float nextFireTime = 0f;
-    private bool isReloading = false;
+    public bool isReloading = false;
     private bool canHoldFire => currentWeapon.allowHoldFire;
+    private PlayerScript playerScript;
 
     void Start()
     {
         if (availableWeapons.Count > 0)
         {
             currentWeapon = availableWeapons[currentWeaponIndex];
-            currentAmmo = currentWeapon.maxAmmo;
         }
         UpdateUI();
     }
@@ -28,14 +29,22 @@ public class AmmoManager : MonoBehaviour
     {
         if (isReloading) return;
 
+        var ammoTextGO = GameObject.FindWithTag("AmmoText");
+        if (ammoTextGO && !ammoText)
+        {
+            ammoText = ammoTextGO.GetComponent<TMP_Text>();
+            UpdateUI();
+        }
+
         // Shooting Logic
-        if ((canHoldFire && Input.GetButton("Fire1")) || (!canHoldFire && Input.GetButtonDown("Fire1")))
+        if ((canHoldFire && Input.GetButton("Fire1")) || (!canHoldFire && Input.GetButtonDown("Fire1") && isReloading == false))
         {
             if (Time.time >= nextFireTime)
             {
                 nextFireTime = Time.time + currentWeapon.fireRate;
                 Shoot();
             }
+            
         }
 
         // Reload Logic
@@ -48,7 +57,7 @@ public class AmmoManager : MonoBehaviour
         HandleWeaponSwitching();
     }
 
-    void Shoot()
+    public void Shoot()
     {
         if (currentAmmo > 0)
         {
@@ -60,18 +69,21 @@ public class AmmoManager : MonoBehaviour
         {
             Debug.Log("Out of ammo!");
         }
+
+        playerScript.canShoot = true;
     }
 
     void UpdateUI()
     {
         if (ammoText != null)
         {
-            ammoText.text = $"{currentWeapon.weaponName} - Ammo: {currentAmmo}/{currentWeapon.maxAmmo}";
+            ammoText.text = $"Ammo: {currentAmmo}/{currentWeapon.maxAmmo}";
         }
     }
 
     IEnumerator Reload()
     {
+        //playerScript.canShoot = false;
         isReloading = true;
         Debug.Log("Reloading...");
         yield return new WaitForSeconds(currentWeapon.reloadSpeed);

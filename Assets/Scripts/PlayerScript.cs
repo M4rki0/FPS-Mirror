@@ -11,7 +11,7 @@ namespace QuickStart
         public GameObject floatingInfo;
 
         private Material playerMaterialClone;
-        public Weapon activeWeapon;
+        public Weapon weapon;
         public AmmoManager ammoManager;
         private float weaponCooldownTime;  
 
@@ -25,6 +25,7 @@ namespace QuickStart
 
         private UIStuff uiStuff;
         public bool isCurrentScene;
+        public bool canShoot;
 
         [SyncVar(hook = nameof(OnSelectedGunChanged))]
         public GunSelectionSystem.GunType selectedGun;
@@ -109,17 +110,17 @@ namespace QuickStart
 
             //if (SceneManager.GetActiveScene("Lobby"))
             //{
-                //isCurrentScene = !enabled;
-                if (Input.GetButtonDown("Fire1") && activeWeapon && Time.time > weaponCooldownTime)
+            //isCurrentScene = !enabled;
+                if (Input.GetButtonDown("Fire1") && weapon && Time.time > weaponCooldownTime && ammoManager.isReloading == false)
                 {
-                    weaponCooldownTime = Time.time + activeWeapon.weaponCooldown;
-                    ammoManager.currentAmmo -= 1;
+                    weaponCooldownTime = Time.time + weapon.cooldown;
+                    guns[(int)selectedGun].GetComponent<AmmoManager>().Shoot();
 
                     CmdShootRay(); // Call shooting method
                 }
             //}
             
-            if (activeWeapon == null)
+            if (weapon == null)
             {
                 Debug.LogError("activeWeapon is null! Make sure ActivateGun() is called before shooting.");
                 return;
@@ -135,9 +136,9 @@ namespace QuickStart
             }
 
             guns[(int)gunType].SetActive(true);
-            activeWeapon = guns[(int)gunType].GetComponent<Weapon>(); // Ensure activeWeapon is updated
+            weapon = guns[(int)gunType].GetComponent<Weapon>(); // Ensure activeWeapon is updated
             
-            if (activeWeapon == null)
+            if (weapon == null)
             {
                 Debug.LogError("Active weapon is null! Make sure the Gun objects have a Weapon component.");
             }
@@ -164,18 +165,18 @@ namespace QuickStart
         [Command]
         void CmdShootRay()
         {
-            if (activeWeapon == null) return; // Ensure weapon exists
+            if (weapon == null) return; // Ensure weapon exists
 
             RaycastHit hit;
             Transform camTransform = Camera.main.transform; // Use player's camera
 
-            if (Physics.Raycast(camTransform.position, camTransform.forward, out hit, activeWeapon.range))
+            if (Physics.Raycast(camTransform.position, camTransform.forward, out hit, weapon.range))
             {
                 Debug.Log($"Hit: {hit.collider.name}");
 
                 if (hit.collider.TryGetComponent<PlayerHealth>(out PlayerHealth playerHealth))
                 {
-                    playerHealth.TakeDamage(activeWeapon.damage);
+                    playerHealth.TakeDamage(weapon.damage);
                 }
             }
 
@@ -187,10 +188,9 @@ namespace QuickStart
         [ClientRpc]
         void RpcFireWeapon()
         {
-            //bulletAudio.Play(); muzzleflash  etc
-            GameObject bullet = Instantiate(activeWeapon.weaponBullet, activeWeapon.weaponFirePosition.position, activeWeapon.weaponFirePosition.rotation);
-            bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * activeWeapon.weaponSpeed;
-            Destroy(bullet, activeWeapon.weaponLife);
+            GameObject bullet = Instantiate(weapon.bullet, weapon.firePosition.transform.position, weapon.firePosition.transform.rotation);
+            bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * weapon.bulletSpeed;
+            Destroy(bullet, 5f);
         }
         
         private SceneScript sceneScript;
