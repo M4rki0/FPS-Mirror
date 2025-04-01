@@ -8,7 +8,7 @@ public class AmmoManager : MonoBehaviour
     public List<WeaponData> availableWeapons; // List of weapons the player has
     private int currentWeaponIndex = 0; // Track currently selected weapon
     public WeaponData currentWeapon;
-    private int currentAmmo;
+    public int currentAmmo;
     public TMP_Text ammoText;
     private float nextFireTime = 0f;
     private bool isReloading = false;

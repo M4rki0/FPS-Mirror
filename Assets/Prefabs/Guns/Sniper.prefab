@@ -75,6 +75,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c65d77dafc1ff3c419dcf7374ec5c71a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6040665844113552409}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c65d77dafc1ff3c419dcf7374ec5c71a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6360161256891566040}
   m_SourcePrefab: {fileID: 100100000, guid: c65d77dafc1ff3c419dcf7374ec5c71a, type: 3}
 --- !u!1 &3936134217170879942 stripped
 GameObject:
@@ -96,3 +99,24 @@ MonoBehaviour:
   availableWeapons: []
   currentWeapon: {fileID: 11400000, guid: e4e0bab034ddbf249b61ae7f45b0d058, type: 2}
   ammoText: {fileID: 0}
+--- !u!114 &6360161256891566040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3936134217170879942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffa688dc4efd71a42afd2f96918b47d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  damage: 25
+  range: 100
+  fpsCam: {fileID: 0}
+  hitMask:
+    serializedVersion: 2
+    m_Bits: 0

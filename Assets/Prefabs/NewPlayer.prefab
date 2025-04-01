@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 9062634279151511528}
   - component: {fileID: 3929060764150318721}
   - component: {fileID: 7568326717465996573}
+  - component: {fileID: 5170411212835263735}
   m_Layer: 0
   m_Name: NewPlayer
   m_TagString: Untagged
@@ -155,7 +156,6 @@ MonoBehaviour:
   - {fileID: 6652115801224787166}
   - {fileID: 3096228854592547220}
   - {fileID: 6527836868387865499}
-  activeWeaponSynced: 0
 --- !u!114 &7568326717465996573
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,6 +175,21 @@ MonoBehaviour:
   perkDuration: 30
   teleportRadius: 10
   cooldownTime: 10
+--- !u!114 &5170411212835263735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 223979628983113338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6072e438b703c5a42b0b4d0fbf81a72c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHealth: 0
+  maxHealth: 100
+  damage: 0
 --- !u!1 &382846496717217017
 GameObject:
   m_ObjectHideFlags: 0

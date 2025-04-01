@@ -1,17 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class PlayerHealth : MonoBehaviour
+public class PlayerHealth : NetworkBehaviour
 {
     public float maxHealth = 100f;
+    
+    [SyncVar(hook = nameof(OnHealthChanged))]
     private float currentHealth;
 
     private void Start()
     {
-        currentHealth = maxHealth;
+        if (isServer)
+        {
+            currentHealth = maxHealth;
+        }
     }
 
+    [Server]
     public void TakeDamage(float damage)
     {
         // Check if the player has the ÷2 damage perk
@@ -36,10 +43,24 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    [Server]
     private void Die()
     {
         Debug.Log("Player died!");
         // Add death handling logic here (e.g., respawn, end game)
+    }
+    
+    [ClientRpc]
+    private void RpcHandleDeath()
+    {
+        // Handle death visuals/sounds on the client
+        Debug.Log("Player death handled on client.");
+    }
+
+    private void OnHealthChanged(float oldHealth, float newHealth)
+    {
+        Debug.Log($"Health updated: {newHealth}");
+        // Update UI or visuals on clients here
     }
 }
 

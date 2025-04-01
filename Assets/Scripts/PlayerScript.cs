@@ -11,7 +11,8 @@ namespace QuickStart
         public GameObject floatingInfo;
 
         private Material playerMaterialClone;
-        private Weapon activeWeapon;
+        public Weapon activeWeapon;
+        public AmmoManager ammoManager;
         private float weaponCooldownTime;  
 
         [SyncVar(hook = nameof(OnNameChanged))]
@@ -96,7 +97,7 @@ namespace QuickStart
             transform.Rotate(0, moveX, 0);
             transform.Translate(0, 0, moveZ);
 
-            if (Input.GetAxis("Mouse ScrollWheel") > 0) //Fire2 is mouse 2nd click and left alt
+            /*if (Input.GetAxis("Mouse ScrollWheel") > 0) //Fire2 is mouse 2nd click and left alt
             {
                 selectedGun += 1;
 
@@ -104,22 +105,26 @@ namespace QuickStart
                     selectedGun = 0; 
 
                 //CmdChangeActiveWeapon((int)selectedGun);
-            }
+            }*/
 
             //if (SceneManager.GetActiveScene("Lobby"))
             //{
                 //isCurrentScene = !enabled;
-                if (Input.GetButtonDown("Fire1")) //Fire1 is mouse 1st click
+                if (Input.GetButtonDown("Fire1") && activeWeapon && Time.time > weaponCooldownTime)
                 {
-                    if (activeWeapon && Time.time > weaponCooldownTime && activeWeapon.weaponAmmo > 0)
-                    {
-                        weaponCooldownTime = Time.time + activeWeapon.weaponCooldown;
-                        activeWeapon.weaponAmmo -= 1;
-                        //uiStuff.UIAmmo(activeWeapon.weaponAmmo);
-                        CmdShootRay();
-                    }
+                    weaponCooldownTime = Time.time + activeWeapon.weaponCooldown;
+                    ammoManager.currentAmmo -= 1;
+
+                    CmdShootRay(); // Call shooting method
                 }
             //}
+            
+            if (activeWeapon == null)
+            {
+                Debug.LogError("activeWeapon is null! Make sure ActivateGun() is called before shooting.");
+                return;
+            }
+
         }
         
         public void ActivateGun(GunSelectionSystem.GunType gunType)
@@ -128,10 +133,16 @@ namespace QuickStart
             {
                 gun.SetActive(false);
             }
-        
-            guns[(int)gunType].SetActive(true);
-        }
 
+            guns[(int)gunType].SetActive(true);
+            activeWeapon = guns[(int)gunType].GetComponent<Weapon>(); // Ensure activeWeapon is updated
+            
+            if (activeWeapon == null)
+            {
+                Debug.LogError("Active weapon is null! Make sure the Gun objects have a Weapon component.");
+            }
+        }
+        
         public void SetLocalLoadout(GunSelectionSystem.GunType gun, PerkSystem.PerkType perk)
         {
             OnSelectedGunChanged(selectedGun, gun);
@@ -153,8 +164,25 @@ namespace QuickStart
         [Command]
         void CmdShootRay()
         {
-            RpcFireWeapon();
+            if (activeWeapon == null) return; // Ensure weapon exists
+
+            RaycastHit hit;
+            Transform camTransform = Camera.main.transform; // Use player's camera
+
+            if (Physics.Raycast(camTransform.position, camTransform.forward, out hit, activeWeapon.range))
+            {
+                Debug.Log($"Hit: {hit.collider.name}");
+
+                if (hit.collider.TryGetComponent<PlayerHealth>(out PlayerHealth playerHealth))
+                {
+                    playerHealth.TakeDamage(activeWeapon.damage);
+                }
+            }
+
+            RpcFireWeapon(); // Play effects for all players
         }
+
+
 
         [ClientRpc]
         void RpcFireWeapon()
