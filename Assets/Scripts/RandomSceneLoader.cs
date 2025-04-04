@@ -7,10 +7,11 @@ using UnityEngine.SceneManagement;
 public class RandomSceneLoader : NetworkBehaviour
 {
     public string[] sceneNames; // Add scene names in the Inspector
+    public bool canLoad;
     
     public void LoadRandomScene()
     {
-        
+        if (!canLoad) return;    
         Debug.Log("Client requesting scene change");
         CmdChangeScene();
     }

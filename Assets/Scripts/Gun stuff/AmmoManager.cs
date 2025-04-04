@@ -14,7 +14,7 @@ public class AmmoManager : MonoBehaviour
     private float nextFireTime = 0f;
     public bool isReloading = false;
     private bool canHoldFire => currentWeapon.allowHoldFire;
-    private PlayerScript playerScript;
+    [SerializeField] private PlayerScript playerScript;
 
     void Start()
     {
@@ -37,7 +37,7 @@ public class AmmoManager : MonoBehaviour
         }
 
         // Shooting Logic
-        if ((canHoldFire && Input.GetButton("Fire1")) || (!canHoldFire && Input.GetButtonDown("Fire1") && isReloading == false))
+        if ((canHoldFire && Input.GetButton("Fire1")) || (!canHoldFire && Input.GetButton("Fire1") && isReloading == false))
         {
             if (Time.time >= nextFireTime)
             {
@@ -59,6 +59,10 @@ public class AmmoManager : MonoBehaviour
 
     public void Shoot()
     {
+        // if we can't shoot then dont fucking shoot
+        if (!playerScript.isPlayerInGame) return;
+        if (!playerScript.canShoot) return;
+        
         if (currentAmmo > 0)
         {
             currentAmmo--;
@@ -69,8 +73,6 @@ public class AmmoManager : MonoBehaviour
         {
             Debug.Log("Out of ammo!");
         }
-
-        playerScript.canShoot = true;
     }
 
     void UpdateUI()

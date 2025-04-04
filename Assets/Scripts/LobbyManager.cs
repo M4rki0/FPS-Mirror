@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using System.Linq;
 using Mirror;
+using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -12,6 +14,9 @@ public class LobbyManager : NetworkManager
     public Button startGameButton;
     private int maxPlayers = 2;
     public GameObject PlayerTextPrefab;
+    
+    // MAGICAL LIST OF PLAYERS
+    public List<NetworkedLobbyPlayer> playerScripts;
 
     private int playerCount = 0;
     //public SyncList<string> playerNames = new SyncList<string>();
@@ -36,12 +41,18 @@ public class LobbyManager : NetworkManager
         {
             GameObject joinedPlayer = Instantiate(PlayerTextPrefab, new Vector3(0, 0, 0), Quaternion.identity);
             var lobbyPlayer = joinedPlayer.GetComponent<NetworkedLobbyPlayer>();
+            Debug.Log("Trying to link ReadyUp nw lobbyplayer, data is " + lobbyPlayer);
+            joinedPlayer.GetComponent<ReadyUp>().lobbyPlayer = lobbyPlayer;
+            Debug.Log("Ready Up's player is now " + joinedPlayer.GetComponent<ReadyUp>().lobbyPlayer);
+            
             lobbyPlayer.playerName = "Player " + playerCount;
             //lobbyPlayer.connectionId = conn.connectionId;
             NetworkServer.Spawn(joinedPlayer);
+
             joinedPlayer.GetComponent<NetworkIdentity>().AssignClientAuthority(conn);
 
             lobbyPlayer.player = conn.identity.gameObject;
+            playerScripts.Add(lobbyPlayer.player.GetComponent<NetworkedLobbyPlayer>());
             conn.identity.gameObject.GetComponent<PlayerScript>().SetReadyUpButtonPlayer(conn, joinedPlayer);
         }
     }

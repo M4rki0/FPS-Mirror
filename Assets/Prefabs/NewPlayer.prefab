@@ -144,13 +144,15 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  playerNameText: {fileID: 8408038163556375250, guid: 710a9f9386e4d7242baf8a9d94b0f55b, type: 3}
-  floatingInfo: {fileID: 382846496717217017, guid: 710a9f9386e4d7242baf8a9d94b0f55b, type: 3}
+  playerNameText: {fileID: 8408038163556375250}
+  floatingInfo: {fileID: 382846496717217017}
   weapon: {fileID: 0}
   ammoManager: {fileID: 0}
   playerName: 
   playerColor: {r: 1, g: 1, b: 1, a: 1}
   isCurrentScene: 0
+  canShoot: 0
+  isPlayerInGame: 0
   selectedGun: 0
   guns:
   - {fileID: 8496745551934636551}
@@ -426,6 +428,14 @@ PrefabInstance:
       propertyPath: _assetId
       value: 3896645580
       objectReference: {fileID: 0}
+    - target: {fileID: 630901168757402755, guid: 8f8b80af3e5652d43a12af2a7693112e, type: 3}
+      propertyPath: currentAmmo
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 630901168757402755, guid: 8f8b80af3e5652d43a12af2a7693112e, type: 3}
+      propertyPath: playerScript
+      value: 
+      objectReference: {fileID: 3929060764150318721}
     - target: {fileID: 829358424563529780, guid: 8f8b80af3e5652d43a12af2a7693112e, type: 3}
       propertyPath: bulletSpeed
       value: 10
@@ -574,6 +584,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6040665844113552409, guid: ff490040310add845984cb099e7e51f7, type: 3}
+      propertyPath: currentAmmo
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6040665844113552409, guid: ff490040310add845984cb099e7e51f7, type: 3}
+      propertyPath: playerScript
+      value: 
+      objectReference: {fileID: 3929060764150318721}
     - target: {fileID: 6360161256891566040, guid: ff490040310add845984cb099e7e51f7, type: 3}
       propertyPath: bulletSpeed
       value: 10
@@ -748,6 +766,14 @@ PrefabInstance:
       propertyPath: _assetId
       value: 3896645580
       objectReference: {fileID: 0}
+    - target: {fileID: 7339948073515766081, guid: acca5f13bee4e2649a626d2cf6cebb7c, type: 3}
+      propertyPath: currentAmmo
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7339948073515766081, guid: acca5f13bee4e2649a626d2cf6cebb7c, type: 3}
+      propertyPath: playerScript
+      value: 
+      objectReference: {fileID: 3929060764150318721}
     - target: {fileID: 7748743768739800978, guid: acca5f13bee4e2649a626d2cf6cebb7c, type: 3}
       propertyPath: bulletSpeed
       value: 10
@@ -840,6 +866,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7393485767495338847, guid: 17c1c0f5f6241344bb5d601a8b53ede6, type: 3}
+      propertyPath: currentAmmo
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7393485767495338847, guid: 17c1c0f5f6241344bb5d601a8b53ede6, type: 3}
+      propertyPath: playerScript
+      value: 
+      objectReference: {fileID: 3929060764150318721}
     - target: {fileID: 7393663782634313286, guid: 17c1c0f5f6241344bb5d601a8b53ede6, type: 3}
       propertyPath: _assetId
       value: 3896645580

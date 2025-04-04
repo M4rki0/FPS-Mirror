@@ -31,7 +31,7 @@ public class NetworkedLobbyPlayer : NetworkBehaviour
                 Debug.LogWarning("Could not find ready up button");
             }
             readyUpButton.lobbyPlayer = this;
-            
+
             readyText.text = "(Not Ready)";
             readyText.color  = Color.red;
         }

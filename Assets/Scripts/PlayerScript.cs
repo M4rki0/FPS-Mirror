@@ -26,6 +26,7 @@ namespace QuickStart
         private UIStuff uiStuff;
         public bool isCurrentScene;
         public bool canShoot;
+        public bool isPlayerInGame;
 
         [SyncVar(hook = nameof(OnSelectedGunChanged))]
         public GunSelectionSystem.GunType selectedGun;
@@ -50,6 +51,22 @@ namespace QuickStart
             Debug.Log("ACTIVATING GUN: " + newGun);
             selectedGun = newGun;
             ActivateGun(newGun);
+        }
+        
+        public void ActivateGun(GunSelectionSystem.GunType gunType)
+        {
+            foreach (var gun in guns)
+            {
+                gun.SetActive(false);
+            }
+
+            guns[(int)gunType].SetActive(true);
+            weapon = guns[(int)gunType].GetComponent<Weapon>(); // Ensure activeWeapon is updated
+            
+            if (weapon == null)
+            {
+                Debug.LogError("Active weapon is null! Make sure the Gun objects have a Weapon component.");
+            }
         }
 
         public override void OnStartLocalPlayer()
@@ -85,7 +102,10 @@ namespace QuickStart
 
         void Update()
         {
-            if (!isLocalPlayer)
+
+            if (!isPlayerInGame) return;
+
+                if (!isLocalPlayer)
             {
                 // make non-local players run this
                 floatingInfo.transform.LookAt(Camera.main.transform);
@@ -111,7 +131,7 @@ namespace QuickStart
             //if (SceneManager.GetActiveScene("Lobby"))
             //{
             //isCurrentScene = !enabled;
-                if (Input.GetButtonDown("Fire1") && weapon && Time.time > weaponCooldownTime && ammoManager.isReloading == false)
+                if (Input.GetButton("Fire1") && weapon && Time.time > weaponCooldownTime && ammoManager.isReloading == false)
                 {
                     weaponCooldownTime = Time.time + weapon.cooldown;
                     guns[(int)selectedGun].GetComponent<AmmoManager>().Shoot();
@@ -127,23 +147,7 @@ namespace QuickStart
             }
 
         }
-        
-        public void ActivateGun(GunSelectionSystem.GunType gunType)
-        {
-            foreach (var gun in guns)
-            {
-                gun.SetActive(false);
-            }
 
-            guns[(int)gunType].SetActive(true);
-            weapon = guns[(int)gunType].GetComponent<Weapon>(); // Ensure activeWeapon is updated
-            
-            if (weapon == null)
-            {
-                Debug.LogError("Active weapon is null! Make sure the Gun objects have a Weapon component.");
-            }
-        }
-        
         public void SetLocalLoadout(GunSelectionSystem.GunType gun, PerkSystem.PerkType perk)
         {
             OnSelectedGunChanged(selectedGun, gun);
@@ -219,6 +223,11 @@ namespace QuickStart
         public void CmdChangeActiveWeapon(int newIndex)
         {
             selectedGun = (GunSelectionSystem.GunType)newIndex;
+        }
+
+        public void EnterGame()
+        {
+            isPlayerInGame = true;
         }
     }
 }
