@@ -10323,12 +10323,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localPlayer: {fileID: 0}
+  randSceneLoad: {fileID: 0}
   selectedGun: 0
   selectedPerk: 0
   ARButton: {fileID: 0}
   SMGButton: {fileID: 0}
   SniperButton: {fileID: 0}
   ShotgunButton: {fileID: 0}
+  readyUp: {fileID: 0}
+  readyUps: []
 --- !u!4 &1048019369
 Transform:
   m_ObjectHideFlags: 0
@@ -16989,6 +16992,7 @@ MonoBehaviour:
   - {fileID: 1286297321}
   normalColor: {r: 1, g: 1, b: 1, a: 1}
   selectedColor: {r: 0, g: 1, b: 0, a: 1}
+  playerScript: {fileID: 0}
 --- !u!114 &2119779446
 MonoBehaviour:
   m_ObjectHideFlags: 0

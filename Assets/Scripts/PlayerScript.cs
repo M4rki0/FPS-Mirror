@@ -1,7 +1,9 @@
+using System;
 using Mirror;
 using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using UnityEditor.SceneManagement;
 
 namespace QuickStart
 {
@@ -31,6 +33,18 @@ namespace QuickStart
         [SyncVar(hook = nameof(OnSelectedGunChanged))]
         public GunSelectionSystem.GunType selectedGun;
         public GameObject[] guns;
+        
+        public float mouseSensitivity = 10f;
+        public Transform playerBody;
+        private float xRotation = 0f;
+        private float yRotation = 0f;
+
+        /*public void Start()
+        {
+            //Scene currentScene 
+            //if ()
+            Cursor.lockState = CursorLockMode.Locked;
+        }*/
 
         void OnNameChanged(string _Old, string _New)
         {
@@ -105,7 +119,7 @@ namespace QuickStart
 
             if (!isPlayerInGame) return;
 
-                if (!isLocalPlayer)
+            if (!isLocalPlayer)
             {
                 // make non-local players run this
                 floatingInfo.transform.LookAt(Camera.main.transform);
@@ -113,10 +127,17 @@ namespace QuickStart
             }
 
             float moveX = Input.GetAxis("Horizontal") * Time.deltaTime * 110.0f;
+            Debug.Log("Player is moving left and right");
             float moveZ = Input.GetAxis("Vertical") * Time.deltaTime * 4f;
+            Debug.Log("Player is moving forward and backward");
 
             transform.Rotate(0, moveX, 0);
             transform.Translate(0, 0, moveZ);
+
+            if (Time.time > weaponCooldownTime)
+            {
+                canShoot = true;
+            }
 
             /*if (Input.GetAxis("Mouse ScrollWheel") > 0) //Fire2 is mouse 2nd click and left alt
             {
@@ -131,10 +152,12 @@ namespace QuickStart
             //if (SceneManager.GetActiveScene("Lobby"))
             //{
             //isCurrentScene = !enabled;
-                if (Input.GetButton("Fire1") && weapon && Time.time > weaponCooldownTime && ammoManager.isReloading == false)
+                if (Input.GetButton("Fire1") && weapon && canShoot && isLocalPlayer/*&& ammoManager.isReloading == false*/)
                 {
+                    Debug.Log("Player is shooting");
                     weaponCooldownTime = Time.time + weapon.cooldown;
-                    guns[(int)selectedGun].GetComponent<AmmoManager>().Shoot();
+                    canShoot = false;
+                    guns[(int)selectedGun].GetComponent<AmmoManager>().Shoot(); 
 
                     CmdShootRay(); // Call shooting method
                 }
@@ -145,6 +168,17 @@ namespace QuickStart
                 Debug.LogError("activeWeapon is null! Make sure ActivateGun() is called before shooting.");
                 return;
             }
+            
+            float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+            float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+
+            xRotation -= mouseY;
+            xRotation = Mathf.Clamp(xRotation, -90f, 90f); // Limit vertical rotation to prevent flipping
+
+            yRotation += mouseX;
+
+            transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0f);
+            playerBody.Rotate(Vector3.up * mouseX);
 
         }
 
@@ -152,6 +186,11 @@ namespace QuickStart
         {
             OnSelectedGunChanged(selectedGun, gun);
             GetComponent<PerkSystem>().selectedPerk = perk;
+            if (isLocalPlayer)
+            {
+                Debug.Log(selectedGun.ToString());
+                guns[(int)selectedGun].GetComponent<AmmoManager>().EquipWeapon();
+            }
             SetPlayerLoadout(gun,perk);
         }
         // Method to set the player's loadout

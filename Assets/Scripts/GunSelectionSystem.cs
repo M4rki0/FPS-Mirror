@@ -57,6 +57,10 @@ public class GunSelectionSystem : MonoBehaviour
 
        Debug.Log($"Attempting set loadout: Gun = {selectedGun}, Perk = {selectedPerk}");
        GameManager.Instance.localPlayer.GetComponent<PlayerScript>().SetLocalLoadout(selectedGun, selectedPerk);
+       
+       Debug.Log("Gun selection has been confirmed");
+       
+       GameManager.Instance.localPlayer.GetComponent<PlayerScript>().EnterGame();
 
         //NetworkManager.singleton.StartClient();
     }

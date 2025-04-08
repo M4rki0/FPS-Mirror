@@ -136,7 +136,8 @@ MonoBehaviour:
   availableWeapons: []
   currentWeapon: {fileID: 11400000, guid: 8bfd015a0c1d9074196754528e7c9f85, type: 2}
   currentAmmo: 0
-  ammoText: {fileID: 0}
+  isReloading: 0
+  playerScript: {fileID: 0}
 --- !u!114 &7748743768739800978
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,7 +156,7 @@ MonoBehaviour:
   damage: 25
   range: 100
   fpsCam: {fileID: 0}
-  cooldown: 0
+  cooldown: 0.025
   weaponAmmo: 0
   hitMask:
     serializedVersion: 2

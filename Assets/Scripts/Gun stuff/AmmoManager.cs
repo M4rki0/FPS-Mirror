@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class AmmoManager : MonoBehaviour
 {
-    public List<WeaponData> availableWeapons; // List of weapons the player has
+    //public List<WeaponData> availableWeapons; // List of weapons the player has
     private int currentWeaponIndex = 0; // Track currently selected weapon
     public WeaponData currentWeapon;
     public int currentAmmo;
@@ -16,12 +16,8 @@ public class AmmoManager : MonoBehaviour
     private bool canHoldFire => currentWeapon.allowHoldFire;
     [SerializeField] private PlayerScript playerScript;
 
-    void Start()
+    public void EquipWeapon()
     {
-        if (availableWeapons.Count > 0)
-        {
-            currentWeapon = availableWeapons[currentWeaponIndex];
-        }
         UpdateUI();
     }
 
@@ -32,12 +28,13 @@ public class AmmoManager : MonoBehaviour
         var ammoTextGO = GameObject.FindWithTag("AmmoText");
         if (ammoTextGO && !ammoText)
         {
+            Debug.Log("SETTING AMMO TEXT");
             ammoText = ammoTextGO.GetComponent<TMP_Text>();
-            UpdateUI();
+            //UpdateUI();
         }
 
         // Shooting Logic
-        if ((canHoldFire && Input.GetButton("Fire1")) || (!canHoldFire && Input.GetButton("Fire1") && isReloading == false))
+        /*if ((canHoldFire && Input.GetButton("Fire1")) || (!canHoldFire && Input.GetButton("Fire1") && isReloading == false))
         {
             if (Time.time >= nextFireTime)
             {
@@ -45,16 +42,19 @@ public class AmmoManager : MonoBehaviour
                 Shoot();
             }
             
-        }
+        }*/
 
         // Reload Logic
         if (Input.GetKeyDown(KeyCode.R) || currentAmmo == 0) 
         {
             StartCoroutine(Reload());
+            isReloading = true;
         }
 
         // Weapon Switching
-        HandleWeaponSwitching();
+        //HandleWeaponSwitching();
+
+        if (currentAmmo < 0) isReloading = false;
     }
 
     public void Shoot()
@@ -94,8 +94,9 @@ public class AmmoManager : MonoBehaviour
         isReloading = false;
         Debug.Log("Gun has been reloaded");
     }
+    
 
-    void HandleWeaponSwitching()
+    /*void HandleWeaponSwitching()
     {
         // Scroll Wheel Switching
         float scroll = Input.GetAxis("Mouse ScrollWheel");
@@ -132,5 +133,5 @@ public class AmmoManager : MonoBehaviour
         UpdateUI();
 
         Debug.Log($"Switched to {currentWeapon.weaponName}");
-    }
+    }*/
 }

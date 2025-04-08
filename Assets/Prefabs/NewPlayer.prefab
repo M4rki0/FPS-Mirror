@@ -159,6 +159,8 @@ MonoBehaviour:
   - {fileID: 6652115801224787166}
   - {fileID: 3096228854592547220}
   - {fileID: 6527836868387865499}
+  mouseSensitivity: 10
+  playerBody: {fileID: 8578818703362543903}
 --- !u!114 &7568326717465996573
 MonoBehaviour:
   m_ObjectHideFlags: 0
