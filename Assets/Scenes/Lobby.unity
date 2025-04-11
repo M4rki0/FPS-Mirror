@@ -440,6 +440,7 @@ MonoBehaviour:
   SniperButton: {fileID: 3060286382511771713, guid: 52e444af0b0ff0a48991bb9d173c8f20, type: 3}
   ShotgunButton: {fileID: 5377220275482864879, guid: c52e9d5877ea5ee4283b7a83fc9b39ce, type: 3}
   readyUp: {fileID: 0}
+  readyUps: []
 --- !u!4 &436966647
 Transform:
   m_ObjectHideFlags: 0

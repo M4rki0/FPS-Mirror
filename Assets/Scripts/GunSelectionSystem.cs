@@ -19,7 +19,21 @@ public class GunSelectionSystem : MonoBehaviour
     public Color normalColor = Color.white;
     public Color selectedColor = Color.green;
 
+    public bool isSetupActive;
+    public GamesList gamesList;
+
     // Method to be called by UI Buttons when selecting a gun
+
+    void Start()
+    {
+
+        /*if (isSetupActive == true)
+        {
+            GameManager.Instance.localPlayer.GetComponent<GamesList>().canvas.enabled = true;
+            GameManager.Instance.localPlayer.GetComponent<MouseLook>().mouseSensitivity = 0f;
+        }*/
+
+    }
     public void SelectGun(int gunIndex)
     {
         Debug.Log($"SelectGun() CALLED with index {gunIndex}");
@@ -43,6 +57,13 @@ public class GunSelectionSystem : MonoBehaviour
     // Method to confirm selection and pass data to GameManager
     public void ConfirmSelection()
     {
+
+        /*if (isSetupActive)
+        {
+            GameManager.Instance.localPlayer.GetComponent<GamesList>().canvas.enabled = false;
+            GameManager.Instance.localPlayer.GetComponent<MouseLook>().mouseSensitivity = 1500f;
+        }*/
+        
         if (GameManager.Instance == null)
         {
             Debug.LogError("GameManager instance is NULL");

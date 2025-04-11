@@ -9927,6 +9927,7 @@ GameObject:
   - component: {fileID: 963194228}
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
+  - component: {fileID: 963194229}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -10008,6 +10009,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &963194229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58047a6b316caee43bb9640cacd9eb88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mouseSensitivity: 1500
+  playerBody: {fileID: 0}
 --- !u!1001 &964668125
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16992,7 +17007,8 @@ MonoBehaviour:
   - {fileID: 1286297321}
   normalColor: {r: 1, g: 1, b: 1, a: 1}
   selectedColor: {r: 0, g: 1, b: 0, a: 1}
-  playerScript: {fileID: 0}
+  isSetupActive: 0
+  gamesList: {fileID: 0}
 --- !u!114 &2119779446
 MonoBehaviour:
   m_ObjectHideFlags: 0

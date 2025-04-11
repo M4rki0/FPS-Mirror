@@ -22,8 +22,6 @@ namespace QuickStart
 
         [SyncVar(hook = nameof(OnColorChanged))]
         public Color playerColor = Color.white;
-        
-        
 
         private UIStuff uiStuff;
         public bool isCurrentScene;
@@ -33,17 +31,11 @@ namespace QuickStart
         [SyncVar(hook = nameof(OnSelectedGunChanged))]
         public GunSelectionSystem.GunType selectedGun;
         public GameObject[] guns;
-        
-        public float mouseSensitivity = 10f;
-        public Transform playerBody;
-        private float xRotation = 0f;
-        private float yRotation = 0f;
 
         /*public void Start()
         {
             //Scene currentScene 
             //if ()
-            Cursor.lockState = CursorLockMode.Locked;
         }*/
 
         void OnNameChanged(string _Old, string _New)
@@ -87,6 +79,7 @@ namespace QuickStart
         {
             Camera.main.transform.SetParent(transform);
             Camera.main.transform.localPosition = new Vector3(0, 0, 0);
+            Camera.main.gameObject.GetComponent<MouseLook>().playerBody = transform;
             
             floatingInfo.transform.localPosition = new Vector3(0, -0.3f, 0.6f);
             floatingInfo.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
@@ -168,17 +161,6 @@ namespace QuickStart
                 Debug.LogError("activeWeapon is null! Make sure ActivateGun() is called before shooting.");
                 return;
             }
-            
-            float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-            float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
-
-            xRotation -= mouseY;
-            xRotation = Mathf.Clamp(xRotation, -90f, 90f); // Limit vertical rotation to prevent flipping
-
-            yRotation += mouseX;
-
-            transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0f);
-            playerBody.Rotate(Vector3.up * mouseX);
 
         }
 
