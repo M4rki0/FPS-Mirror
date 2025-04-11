@@ -11,6 +11,7 @@ namespace QuickStart
     {
         public TMP_Text playerNameText;
         public GameObject floatingInfo;
+        public Transform playerCameraPosition;
 
         private Material playerMaterialClone;
         public Weapon weapon;
@@ -27,16 +28,20 @@ namespace QuickStart
         public bool isCurrentScene;
         public bool canShoot;
         public bool isPlayerInGame;
+        public float moveSpeed = 10;
 
         [SyncVar(hook = nameof(OnSelectedGunChanged))]
         public GunSelectionSystem.GunType selectedGun;
         public GameObject[] guns;
 
-        /*public void Start()
+        private CharacterController _characterController;
+
+        public void Start()
         {
             //Scene currentScene 
             //if ()
-        }*/
+            _characterController = GetComponent<CharacterController>();
+        }
 
         void OnNameChanged(string _Old, string _New)
         {
@@ -78,7 +83,7 @@ namespace QuickStart
         public override void OnStartLocalPlayer()
         {
             Camera.main.transform.SetParent(transform);
-            Camera.main.transform.localPosition = new Vector3(0, 0, 0);
+            Camera.main.transform.position = playerCameraPosition.position;
             Camera.main.gameObject.GetComponent<MouseLook>().playerBody = transform;
             
             floatingInfo.transform.localPosition = new Vector3(0, -0.3f, 0.6f);
@@ -118,14 +123,9 @@ namespace QuickStart
                 floatingInfo.transform.LookAt(Camera.main.transform);
                 return;
             }
+            var moveDirection = transform.forward * Input.GetAxis("Vertical") + transform.right * Input.GetAxis("Horizontal");
 
-            float moveX = Input.GetAxis("Horizontal") * Time.deltaTime * 110.0f;
-            Debug.Log("Player is moving left and right");
-            float moveZ = Input.GetAxis("Vertical") * Time.deltaTime * 4f;
-            Debug.Log("Player is moving forward and backward");
-
-            transform.Rotate(0, moveX, 0);
-            transform.Translate(0, 0, moveZ);
+            _characterController.Move(moveDirection * (moveSpeed * Time.deltaTime));
 
             if (Time.time > weaponCooldownTime)
             {

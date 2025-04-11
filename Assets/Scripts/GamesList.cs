@@ -13,7 +13,8 @@ namespace QuickStart
 
         private void Start()
         {
-            GameManager.Instance.localPlayer.GetComponent<MouseLook>().dontLook = true;
+            //GameManager.Instance.localPlayer.GetComponent<MouseLook>().dontLook = true;
+            //Debug.Log("camera can't move");
         }
 
         public void DisableCanvas()

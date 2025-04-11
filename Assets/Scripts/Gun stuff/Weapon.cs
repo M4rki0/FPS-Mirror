@@ -3,17 +3,22 @@ using Mirror;
 
 public class Weapon : NetworkBehaviour
 {
-    public float damage = 25f;
+    public int damage = 25;
     public float range = 100f;
     public Camera fpsCam;
     public float cooldown;
-    public float weaponAmmo;
+    public int weaponAmmo;
 
     [SerializeField] private LayerMask hitMask;
     public GameObject bullet;
     public GameObject firePosition;
     public float bulletSpeed;
 
+    void Start()
+    {
+        fpsCam = Camera.main;
+    }
+    
     [Command]
     private void CmdShoot()
     {

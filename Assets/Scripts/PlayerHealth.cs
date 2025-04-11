@@ -1,14 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Mirror;
+using TMPro;
 
 public class PlayerHealth : NetworkBehaviour
 {
-    public float maxHealth = 100f;
+    public int maxHealth = 100;
     
     [SyncVar(hook = nameof(OnHealthChanged))]
-    private float currentHealth;
+    private int currentHealth;
+
+    private TMP_Text healthText;
 
     private void Start()
     {
@@ -18,8 +22,26 @@ public class PlayerHealth : NetworkBehaviour
         }
     }
 
+    void Update()
+    {
+        var healthTextGO = GameObject.FindWithTag("HealthText");
+        if (healthTextGO && !healthText)
+        {
+            Debug.Log("SETTING HEALTH");
+            healthText = healthTextGO.GetComponent<TMP_Text>();
+        }
+    }
+
+    void UpdateUI()
+    {
+        if (healthText != null)
+        {
+            healthText.text = $"Health: {currentHealth}/{maxHealth}";
+        }
+    }
+
     [Server]
-    public void TakeDamage(float damage)
+    public void TakeDamage(int damage)
     {
         // Check if the player has the ÷2 damage perk
         var selectedPerk = GameManager.Instance.GetSelectedPerk();
@@ -57,10 +79,10 @@ public class PlayerHealth : NetworkBehaviour
         Debug.Log("Player death handled on client.");
     }
 
-    private void OnHealthChanged(float oldHealth, float newHealth)
+    private void OnHealthChanged(int oldHealth, int newHealth)
     {
         Debug.Log($"Health updated: {newHealth}");
-        // Update UI or visuals on clients here
+        UpdateUI();
     }
 }
 

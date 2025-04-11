@@ -9,6 +9,7 @@ TagManager:
   - Guns
   - Perks
   - AmmoText
+  - HealthText
   layers:
   - Default
   - TransparentFX
