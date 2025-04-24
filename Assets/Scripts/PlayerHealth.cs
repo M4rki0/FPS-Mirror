@@ -14,6 +14,8 @@ public class PlayerHealth : NetworkBehaviour
 
     private TMP_Text healthText;
 
+    private int damage = 5;
+
     private void Start()
     {
         if (isServer)
@@ -41,12 +43,12 @@ public class PlayerHealth : NetworkBehaviour
     }
 
     [Server]
-    public void TakeDamage(int damage)
+    public void TakeDamage(int i)
     {
         // Check if the player has the ÷2 damage perk
-        var selectedPerk = GameManager.Instance.GetSelectedPerk();
+        // var selectedPerk = GameManager.Instance.GetSelectedPerk();
 
-        if (selectedPerk == PerkSystem.PerkType.HalfDamage)
+        /*if (selectedPerk == PerkSystem.PerkType.HalfDamage)
         {
             damage /= 2; // Reduce damage by half
         }
@@ -54,7 +56,7 @@ public class PlayerHealth : NetworkBehaviour
         if (selectedPerk == PerkSystem.PerkType.DoubleDamage)
         {
             damage *= 2; // Multiply damage by 2
-        }
+        }*/
 
         currentHealth -= damage;
         Debug.Log($"Player took {damage} damage. Current health: {currentHealth}");
