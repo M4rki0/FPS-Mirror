@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 8809571295521235454}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.00707737, z: 0.027378375}
+  m_LocalPosition: {x: 0, y: 0.0135, z: 0.0963}
   m_LocalScale: {x: 0.029544717, y: 0.029544717, z: 0.029544717}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -138,7 +138,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28fb5860fe1891e499c7eadb2580d087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  availableWeapons: []
   currentWeapon: {fileID: 11400000, guid: 6c366efcf0e34f44fa58b64aeae20c9c, type: 2}
   currentAmmo: 0
   isReloading: 0

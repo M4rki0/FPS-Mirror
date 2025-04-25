@@ -257,6 +257,7 @@ namespace QuickStart
         public void EnterGame()
         {
             isPlayerInGame = true;
+            GetComponent<PlayerHealth>().InitUI();
         }
     }
 }

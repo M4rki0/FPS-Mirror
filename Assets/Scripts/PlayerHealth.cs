@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Mirror;
+using Mirror.Examples.BenchmarkIdle;
+using QuickStart;
 using TMPro;
 
 public class PlayerHealth : NetworkBehaviour
@@ -15,6 +17,8 @@ public class PlayerHealth : NetworkBehaviour
     private TMP_Text healthText;
 
     private int damage = 5;
+    
+    private GameObject localPlayer;
 
     private void Start()
     {
@@ -32,6 +36,11 @@ public class PlayerHealth : NetworkBehaviour
             Debug.Log("SETTING HEALTH");
             healthText = healthTextGO.GetComponent<TMP_Text>();
         }
+    }
+
+    public void InitUI()
+    {
+        if(isLocalPlayer) UpdateUI();
     }
 
     void UpdateUI()
@@ -71,20 +80,43 @@ public class PlayerHealth : NetworkBehaviour
     private void Die()
     {
         Debug.Log("Player died!");
+        RpcHandleDeath();
+        
         // Add death handling logic here (e.g., respawn, end game)
     }
     
     [ClientRpc]
     private void RpcHandleDeath()
     {
-        // Handle death visuals/sounds on the client
-        Debug.Log("Player death handled on client.");
+        if (!isLocalPlayer) return;
+
+        // Disable controls
+        GetComponent<PlayerScript>().enabled = false;
+        GetComponent<CharacterController>().enabled = false;
+
+        foreach (var renderer in GetComponentsInChildren<Renderer>())
+        {
+            renderer.enabled = false;
+        }
+
+        // Show respawn UI
+        GameObject respawnBtn = GameObject.FindWithTag("RespawnButton");
+        if (respawnBtn)
+        {
+            respawnBtn.SetActive(true);
+        }
+    }
+
+// Add this to reset from respawn script
+    [Server]
+    public void ResetHealth()
+    {
+        currentHealth = maxHealth;
     }
 
     private void OnHealthChanged(int oldHealth, int newHealth)
     {
         Debug.Log($"Health updated: {newHealth}");
-        UpdateUI();
+        if(isLocalPlayer) UpdateUI();
     }
 }
-
