@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using UnityEditor.SceneManagement;
+using UnityEngine.SceneManagement;
 
 namespace QuickStart
 {
@@ -35,6 +36,7 @@ namespace QuickStart
         public GameObject[] guns;
 
         private CharacterController _characterController;
+        
 
         public void Start()
         {
@@ -82,9 +84,12 @@ namespace QuickStart
 
         public override void OnStartLocalPlayer()
         {
-            Camera.main.transform.SetParent(transform);
-            Camera.main.transform.position = playerCameraPosition.position;
-            Camera.main.gameObject.GetComponent<MouseLook>().playerBody = transform;
+            if (SceneManager.GetActiveScene().name == "Map1")
+            {
+                Camera.main.transform.SetParent(transform);
+                Camera.main.transform.position = playerCameraPosition.position;
+                Camera.main.gameObject.GetComponent<MouseLook>().playerBody = transform;
+            }
             
             floatingInfo.transform.localPosition = new Vector3(0, -0.3f, 0.6f);
             floatingInfo.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
@@ -150,9 +155,12 @@ namespace QuickStart
                     Debug.Log("Player is shooting");
                     weaponCooldownTime = Time.time + weapon.cooldown;
                     canShoot = false;
-                    guns[(int)selectedGun].GetComponent<AmmoManager>().Shoot(); 
+                    guns[(int)selectedGun].GetComponent<AmmoManager>().Shoot();
 
-                    CmdShootRay(); // Call shooting method
+                    Vector3 origin = Camera.main.transform.position;
+                    Vector3 direction = Camera.main.transform.forward;
+
+                    CmdShootRay(origin, direction); // Call shooting method
                 }
             //}
             
@@ -188,7 +196,7 @@ namespace QuickStart
         }
         
         [Command]
-        void CmdShootRay()
+        void CmdShootRay(Vector3 origin, Vector3 direction)
         {
             if (weapon == null) return; // Ensure weapon exists
 
@@ -205,13 +213,13 @@ namespace QuickStart
                 }
             }
 
-            RpcFireWeapon(); // Play effects for all players
+            RpcFireWeapon(weapon.firePosition.transform.position, weapon.firePosition.transform.rotation); // Play effects for all players
         }
 
 
 
         [ClientRpc]
-        void RpcFireWeapon()
+        void RpcFireWeapon(Vector3 position, Quaternion rotation)
         {
             GameObject bullet = Instantiate(weapon.bullet, weapon.firePosition.transform.position, weapon.firePosition.transform.rotation);
             bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * weapon.bulletSpeed;

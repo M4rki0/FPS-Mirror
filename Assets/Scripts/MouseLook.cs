@@ -7,6 +7,7 @@ public class MouseLook : MonoBehaviour
     private float xRotation = 0f;
 
     public bool dontLook;
+    private bool _firstTimeSetup;
 
     void Start()
     {
@@ -16,13 +17,10 @@ public class MouseLook : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.Instance.localPlayer.GetComponent<QuickStart.PlayerScript>().isPlayerInGame)
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-            dontLook = false;
-            mouseSensitivity = 1500f;
-        }
-
+        if (GameManager.Instance.localPlayer == null) return;
+        if (!GameManager.Instance.localPlayer.GetComponent<QuickStart.PlayerScript>().isPlayerInGame) return;
+        if (!_firstTimeSetup) { FirstTime(); }
+            
         // Get mouse input
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
@@ -34,6 +32,14 @@ public class MouseLook : MonoBehaviour
 
         // Rotate player horizontally
         playerBody.Rotate(Vector3.up * mouseX);
+    }
+
+    private void FirstTime()
+    {
+        _firstTimeSetup = true;
+        Cursor.lockState = CursorLockMode.Locked;
+        dontLook = false;
+        mouseSensitivity = 1500f;
     }
     
     /*public void SetLookEnabled(bool isEnabled)
