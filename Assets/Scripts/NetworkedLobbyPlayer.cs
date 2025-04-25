@@ -25,12 +25,12 @@ public class NetworkedLobbyPlayer : NetworkBehaviour
         NetworkIdentity identity = GetComponent<NetworkIdentity>();
         if (identity.isLocalPlayer)
         {
-            var readyUpButton = FindAnyObjectByType<ReadyUp>();
+            /*var readyUpButton = FindAnyObjectByType<ReadyUp>();
             if (!readyUpButton)
             {
                 Debug.LogWarning("Could not find ready up button");
             }
-            readyUpButton.lobbyPlayer = this;
+            readyUpButton.lobbyPlayer = this;*/
 
             readyText.text = "(Not Ready)";
             readyText.color  = Color.red;

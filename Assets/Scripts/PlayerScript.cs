@@ -114,7 +114,7 @@ namespace QuickStart
         public void SetReadyUpButtonPlayer(NetworkConnectionToClient target, GameObject lobbyPlayer)
         {
             Debug.Log("Received from server: " + name);
-            FindAnyObjectByType<ReadyUp>().lobbyPlayer = lobbyPlayer.GetComponent<NetworkedLobbyPlayer>();
+            lobbyPlayer.GetComponent<ReadyUp>().lobbyPlayer = lobbyPlayer.GetComponent<NetworkedLobbyPlayer>();
         }
 
         void Update()

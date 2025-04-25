@@ -13,12 +13,14 @@ public class ReadyUp : MonoBehaviour
 
     public void ReadyUpButton()
     {
-        lobbyPlayer.ReadyUp();
+        if(lobbyPlayer) lobbyPlayer.ReadyUp();
     }
 
     public void ServerReadyUp()
     {
-        buttonText.text = lobbyPlayer.isReady ? "Ready" : "Not Ready";
+        if (!lobbyPlayer) return;
+        
+        if(buttonText) buttonText.text = lobbyPlayer.isReady ? "Ready" : "Not Ready";
 
         Debug.Log("Player is " + (lobbyPlayer.isReady ? "Ready" : "Not Ready"));
     }
