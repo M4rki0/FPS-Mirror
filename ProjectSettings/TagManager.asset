@@ -11,6 +11,8 @@ TagManager:
   - AmmoText
   - HealthText
   - RespawnButton
+  - MatchTimerText
+  - GameOverPanel
   layers:
   - Default
   - TransparentFX
