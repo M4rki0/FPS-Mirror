@@ -3,7 +3,7 @@ using Mirror;
 using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
-using UnityEditor.SceneManagement;
+
 using UnityEngine.SceneManagement;
 
 namespace QuickStart

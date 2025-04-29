@@ -11,8 +11,9 @@ TagManager:
   - AmmoText
   - HealthText
   - RespawnButton
-  - MatchTimerText
   - GameOverPanel
+  - MatchTimerText
+  - HUDCanvas
   layers:
   - Default
   - TransparentFX

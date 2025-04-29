@@ -32,6 +32,8 @@ public class GameManager : NetworkBehaviour
 
     public bool matchRunning = false;
 
+    public GameObject hudCanvas;
+
     private void Awake()
     {
         // Ensure only one instance of GameManager exists
@@ -44,6 +46,18 @@ public class GameManager : NetworkBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    private void Start()
+    {
+        SceneManager.sceneLoaded += (scene, loadSceneMode) =>
+        {
+            if (scene.name != "MatchMaking" && scene.name != "Lobby")
+            {
+                FindMatchUI();
+            }
+        };
+        gameOverPanel.SetActive(false);
     }
 
     private void Update()
@@ -92,13 +106,12 @@ public class GameManager : NetworkBehaviour
     [ClientRpc]
     private void RpcMatchOver()
     {
+        hudCanvas.SetActive(false);
         Debug.Log("Match Over! Showing Game Over Panel");
-        if (gameOverPanel != null)
-        {
-            gameOverPanel.SetActive(true);
-        }
-
+        gameOverPanel.SetActive(true);
         Time.timeScale = 0;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 
     public void StartMatch()
@@ -107,7 +120,7 @@ public class GameManager : NetworkBehaviour
 
         matchTimeRemaining = 300f;
         matchRunning = true;
-        FindMatchUI();
+        //FindMatchUI();
     }
 
     public void PlayAgain()
@@ -141,16 +154,29 @@ public class GameManager : NetworkBehaviour
     {
         if (matchTimerText == null)
         {
-            matchTimerText = GameObject.Find("MatchTimerText")?.GetComponent<TMP_Text>();
+            matchTimerText = GameObject.FindWithTag("MatchTimerText")?.GetComponent<TMP_Text>();
             if (matchTimerText == null)
                 Debug.LogWarning("Match Timer Text not found!");
+        }
+        
+        if (hudCanvas == null)
+        {
+            hudCanvas = GameObject.FindWithTag("HUDCanvas");
+            if (hudCanvas == null)
+                Debug.LogWarning("HUD Canvas not found");
+            else
+                hudCanvas.SetActive(true);
         }
 
         if (gameOverPanel == null)
         {
-            gameOverPanel = GameObject.Find("GameOverPanel");
+            gameOverPanel = GameObject.FindWithTag("GameOverPanel");
             if (gameOverPanel == null)
                 Debug.LogWarning("Game Over Panel not found!");
+            else
+            {
+                gameOverPanel.SetActive(false);
+            }
         }
     }
 
