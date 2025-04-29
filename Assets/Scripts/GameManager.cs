@@ -34,6 +34,8 @@ public class GameManager : NetworkBehaviour
 
     public GameObject hudCanvas;
 
+    public bool hasGameRestarted;
+
     private void Awake()
     {
         // Ensure only one instance of GameManager exists
@@ -213,8 +215,10 @@ public class GameManager : NetworkBehaviour
         return readyUp.lobbyPlayer.isReady;
     }
 
-    void RestartTimer()
+    public void RestartTimer()
     {
-        
+        hasGameRestarted = true;
+        matchRunning = true;
+        matchTimeRemaining = 300f;
     }
 }

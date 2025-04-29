@@ -7,6 +7,7 @@ using Mirror;
 public class GameOver : NetworkBehaviour
 {
     public RandomSceneLoader randomSceneLoader;
+    public GameManager gameManager;
 
     public void PlayAgain()
     {
@@ -14,6 +15,7 @@ public class GameOver : NetworkBehaviour
         {
             Time.timeScale = 1f;
             randomSceneLoader.LoadScene("Map1");
+            gameManager.RestartTimer();
         }
     }
     
