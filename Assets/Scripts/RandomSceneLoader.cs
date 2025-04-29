@@ -13,17 +13,30 @@ public class RandomSceneLoader : NetworkBehaviour
     {
         if (!canLoad) return;    
         Debug.Log("Client requesting scene change");
-        CmdChangeScene();
+        CmdChangeSceneRandom();
+    }
+
+    public void LoadScene(string sceneName)
+    {
+        CmdChangeScene(sceneName);
     }
 
     [Command(requiresAuthority = false)]
-    void CmdChangeScene()
+    void CmdChangeSceneRandom()
     {
         if (sceneNames.Length == 0) return;
         string randomScene = sceneNames[Random.Range(0, sceneNames.Length)];
         //SceneManager.LoadScene(randomScene);
         Debug.Log("Attempting to change scene");
         FindAnyObjectByType<LobbyManager>().ServerChangeScene(randomScene);
+    }
+    
+    [Command(requiresAuthority = false)]
+    void CmdChangeScene(string sceneName)
+    {
+        //SceneManager.LoadScene(randomScene);
+        Debug.Log("Attempting to change scene");
+        FindAnyObjectByType<LobbyManager>().ServerChangeScene(sceneName);
     }
 }
 

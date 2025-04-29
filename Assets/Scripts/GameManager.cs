@@ -57,6 +57,8 @@ public class GameManager : NetworkBehaviour
                 FindMatchUI();
             }
         };
+
+        if (gameOverPanel == null) return;
         gameOverPanel.SetActive(false);
     }
 
@@ -118,12 +120,12 @@ public class GameManager : NetworkBehaviour
     {
         if (!isServer) return;
 
-        matchTimeRemaining = 300f;
+        matchTimeRemaining = 10f;
         matchRunning = true;
         //FindMatchUI();
     }
 
-    public void PlayAgain()
+    /*public void PlayAgain()
     {
         if (isServer)
         {
@@ -139,7 +141,7 @@ public class GameManager : NetworkBehaviour
             Time.timeScale = 1f;
             SceneManager.LoadScene("Menu");
         }
-    }
+    }*/
 
     /*private void FindMatchUI()
     {
@@ -209,5 +211,10 @@ public class GameManager : NetworkBehaviour
     private bool ReadyToEnter(ReadyUp readyUp)
     {
         return readyUp.lobbyPlayer.isReady;
+    }
+
+    void RestartTimer()
+    {
+        
     }
 }
