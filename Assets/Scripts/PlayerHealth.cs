@@ -67,8 +67,8 @@ public class PlayerHealth : NetworkBehaviour
             damage *= 2; // Multiply damage by 2
         }*/
 
-        currentHealth -= damage;
-        Debug.Log($"Player took {damage} damage. Current health: {currentHealth}");
+        currentHealth -= i;
+        Debug.Log($"Player took {i} damage. Current health: {currentHealth}");
 
         if (currentHealth <= 0)
         {

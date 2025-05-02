@@ -122,7 +122,7 @@ public class GameManager : NetworkBehaviour
     {
         if (!isServer) return;
 
-        matchTimeRemaining = 10f;
+        matchTimeRemaining = 300f;
         matchRunning = true;
         //FindMatchUI();
     }

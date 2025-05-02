@@ -37,7 +37,11 @@ namespace QuickStart
 
         private CharacterController _characterController;
         
-
+        public float jumpHeight = 2f;
+        public float gravity = -9.81f;
+        private float verticalVelocity = 0f;
+        
+        
         public void Start()
         {
             //Scene currentScene 
@@ -129,8 +133,23 @@ namespace QuickStart
                 return;
             }
             var moveDirection = transform.forward * Input.GetAxis("Vertical") + transform.right * Input.GetAxis("Horizontal");
+            
+            if (_characterController.isGrounded && verticalVelocity < 0)
+            {
+                verticalVelocity = -2f; // keep grounded
+            }
+
+            verticalVelocity += gravity * Time.deltaTime;
+            moveDirection.y = verticalVelocity;
+
 
             _characterController.Move(moveDirection * (moveSpeed * Time.deltaTime));
+            
+            if (Input.GetKeyDown(KeyCode.Space) && _characterController.isGrounded)
+            {
+                verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            }
+
 
             if (Time.time > weaponCooldownTime)
             {
