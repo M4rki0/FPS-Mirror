@@ -67,11 +67,15 @@ public class PlayerHealth : NetworkBehaviour
             damage *= 2; // Multiply damage by 2
         }*/
 
-        currentHealth -= i;
-        Debug.Log($"Player took {i} damage. Current health: {currentHealth}");
+        if (!localPlayer)
+        {
+            currentHealth -= i;
+            Debug.Log($"Player took {i} damage. Current health: {currentHealth}");
+        }
 
         if (currentHealth <= 0)
         {
+            currentHealth = 0;
             Die();
         }
     }
@@ -106,8 +110,7 @@ public class PlayerHealth : NetworkBehaviour
             respawnBtn.SetActive(true);
         }
     }
-
-// Add this to reset from respawn script
+    
     [Server]
     public void ResetHealth()
     {

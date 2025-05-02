@@ -16,7 +16,7 @@ namespace QuickStart
 
         private Material playerMaterialClone;
         public Weapon weapon;
-        public AmmoManager ammoManager;
+        //public AmmoManager ammoManager;
         private float weaponCooldownTime;  
 
         [SyncVar(hook = nameof(OnNameChanged))]
@@ -133,28 +133,19 @@ namespace QuickStart
                 return;
             }
             var moveDirection = transform.forward * Input.GetAxis("Vertical") + transform.right * Input.GetAxis("Horizontal");
-            
-            if (_characterController.isGrounded && verticalVelocity < 0)
-            {
-                verticalVelocity = -2f; // keep grounded
-            }
 
-            verticalVelocity += gravity * Time.deltaTime;
+            if (!_characterController.isGrounded) verticalVelocity += gravity * Time.deltaTime;
+            else verticalVelocity = 0;
+            
+            if (Input.GetKeyDown(KeyCode.Space) && Physics.SphereCast(new Ray(transform.position, Vector3.down), _characterController.radius, 2f))
+            {
+                verticalVelocity = jumpHeight;
+            }
+            
             moveDirection.y = verticalVelocity;
 
 
             _characterController.Move(moveDirection * (moveSpeed * Time.deltaTime));
-            
-            if (Input.GetKeyDown(KeyCode.Space) && _characterController.isGrounded)
-            {
-                verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
-            }
-
-
-            if (Time.time > weaponCooldownTime)
-            {
-                canShoot = true;
-            }
 
             /*if (Input.GetAxis("Mouse ScrollWheel") > 0) //Fire2 is mouse 2nd click and left alt
             {
@@ -171,17 +162,27 @@ namespace QuickStart
             //isCurrentScene = !enabled;
                 if (Input.GetButton("Fire1") && weapon && canShoot && isLocalPlayer/*&& ammoManager.isReloading == false*/)
                 {
-                    Debug.Log("Player is shooting");
-                    weaponCooldownTime = Time.time + weapon.cooldown;
-                    canShoot = false;
-                    guns[(int)selectedGun].GetComponent<AmmoManager>().Shoot();
+                    var ammoManager = guns[(int)selectedGun].GetComponent<AmmoManager>();
 
-                    Vector3 origin = Camera.main.transform.position;
-                    Vector3 direction = Camera.main.transform.forward;
+                    if (ammoManager.currentAmmo > 0)
+                    {
+                        Debug.Log("Player is shooting");
+                        weaponCooldownTime = Time.time + weapon.cooldown;
+                        canShoot = false;
+                        ammoManager.Shoot();
 
-                    CmdShootRay(origin, direction); // Call shooting method
+                        Vector3 origin = Camera.main.transform.position;
+                        Vector3 direction = Camera.main.transform.forward;
+
+                        CmdShootRay(origin, direction); // Call shooting method
+                    }
                 }
             //}
+            
+            if (Time.time > weaponCooldownTime)
+            {
+                canShoot = true;
+            }
             
             if (weapon == null)
             {
@@ -243,6 +244,7 @@ namespace QuickStart
             GameObject bullet = Instantiate(weapon.bullet, weapon.firePosition.transform.position, weapon.firePosition.transform.rotation);
             bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * weapon.bulletSpeed;
             Destroy(bullet, 5f);
+            //guns[(int)selectedGun].GetComponent<AmmoManager>().Shoot();
         }
         
         private SceneScript sceneScript;

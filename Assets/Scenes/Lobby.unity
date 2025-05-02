@@ -414,7 +414,7 @@ GameObject:
   - component: {fileID: 436966651}
   m_Layer: 0
   m_Name: GameManager
-  m_TagString: Untagged
+  m_TagString: GameManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -431,6 +431,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 068035368cc5bf449847209731e16364, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   localPlayer: {fileID: 0}
   randSceneLoad: {fileID: 1980436439}
   selectedGun: 0
@@ -441,6 +444,12 @@ MonoBehaviour:
   ShotgunButton: {fileID: 5377220275482864879, guid: c52e9d5877ea5ee4283b7a83fc9b39ce, type: 3}
   readyUp: {fileID: 0}
   readyUps: []
+  matchTimeRemaining: 300
+  matchTimerText: {fileID: 0}
+  gameOverPanel: {fileID: 0}
+  matchRunning: 0
+  hudCanvas: {fileID: 0}
+  hasGameRestarted: 0
 --- !u!4 &436966647
 Transform:
   m_ObjectHideFlags: 0
@@ -527,6 +536,8 @@ MonoBehaviour:
   - {fileID: 0}
   normalColor: {r: 1, g: 1, b: 1, a: 1}
   selectedColor: {r: 0, g: 1, b: 0, a: 1}
+  isSetupActive: 0
+  gamesList: {fileID: 0}
 --- !u!114 &436966652
 MonoBehaviour:
   m_ObjectHideFlags: 0

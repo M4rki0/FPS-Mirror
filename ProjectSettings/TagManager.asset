@@ -14,6 +14,7 @@ TagManager:
   - GameOverPanel
   - MatchTimerText
   - HUDCanvas
+  - GameManager
   layers:
   - Default
   - TransparentFX

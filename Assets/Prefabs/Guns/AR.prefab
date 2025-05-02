@@ -157,7 +157,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  damage: 25
+  damage: 9
   range: 100
   fpsCam: {fileID: 0}
   cooldown: 0.025

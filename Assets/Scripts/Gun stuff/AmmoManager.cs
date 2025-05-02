@@ -18,20 +18,18 @@ public class AmmoManager : MonoBehaviour
 
     public void EquipWeapon()
     {
+        var ammoTextGO = GameObject.FindWithTag("AmmoText");
+        if (ammoTextGO && !ammoText)
+        {
+            Debug.Log("SETTING AMMO TEXT");
+            ammoText = ammoTextGO.GetComponent<TMP_Text>();
+        }
         UpdateUI();
     }
 
     void Update()
     {
         if (isReloading) return;
-
-        var ammoTextGO = GameObject.FindWithTag("AmmoText");
-        if (ammoTextGO && !ammoText)
-        {
-            Debug.Log("SETTING AMMO TEXT");
-            ammoText = ammoTextGO.GetComponent<TMP_Text>();
-            //UpdateUI();
-        }
 
         // Shooting Logic
         /*if ((canHoldFire && Input.GetButton("Fire1")) || (!canHoldFire && Input.GetButton("Fire1") && isReloading == false))
@@ -61,7 +59,6 @@ public class AmmoManager : MonoBehaviour
     {
         // if we can't shoot then dont fucking shoot
         if (!playerScript.isPlayerInGame) return;
-        if (!playerScript.canShoot) return;
         
         if (currentAmmo > 0)
         {

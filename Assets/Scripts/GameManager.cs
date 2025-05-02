@@ -26,7 +26,9 @@ public class GameManager : NetworkBehaviour
 
     public List<ReadyUp> readyUps;
 
-    [Header("Match Timer")] [SyncVar] public float matchTimeRemaining = 300f;
+    [Header("Match Timer")]
+    [SyncVar(hook = nameof(OnTimerChanged))]
+    public float matchTimeRemaining = 300f;
     public TMP_Text matchTimerText;
     public GameObject gameOverPanel;
 
@@ -48,6 +50,12 @@ public class GameManager : NetworkBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    void OnTimerChanged(float oldTime, float newTime)
+    {
+        matchTimeRemaining = newTime;
+        UpdateMatchTimerUI(newTime);
     }
 
     private void Start()
@@ -88,18 +96,13 @@ public class GameManager : NetworkBehaviour
                 }
             }
         }
-
-        if (localPlayer != null)
-        {
-            UpdateMatchTimerUI(matchTimeRemaining);
-        }
     }
 
     private void UpdateMatchTimerUI(float timeToDisplay)
     {
         if (matchTimerText == null) return;
 
-        timeToDisplay += 1f;
+        //timeToDisplay += 1f;
 
         float minutes = Mathf.FloorToInt(timeToDisplay / 60);
         float seconds = Mathf.FloorToInt(timeToDisplay % 60);
@@ -118,7 +121,8 @@ public class GameManager : NetworkBehaviour
         Cursor.lockState = CursorLockMode.None;
     }
 
-    public void StartMatch()
+    [Command(requiresAuthority = false)]
+    public void CmdStartMatch()
     {
         if (!isServer) return;
 
@@ -204,7 +208,7 @@ public class GameManager : NetworkBehaviour
         // this all doesnt work as the bool gets reset when player instantiated in level
         // can reuse to check if players are ready though
         if (!readyUps.TrueForAll(ReadyToEnter)) return;
-        StartMatch();
+        CmdStartMatch();
         Debug.Log("Final check passed, can load scene");
         randSceneLoad.canLoad = true;
     }
@@ -217,6 +221,8 @@ public class GameManager : NetworkBehaviour
 
     public void RestartTimer()
     {
+        if (!isServer) return;
+        
         hasGameRestarted = true;
         matchRunning = true;
         matchTimeRemaining = 300f;

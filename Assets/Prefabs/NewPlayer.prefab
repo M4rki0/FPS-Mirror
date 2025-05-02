@@ -163,6 +163,8 @@ MonoBehaviour:
   - {fileID: 6652115801224787166}
   - {fileID: 3096228854592547220}
   - {fileID: 6527836868387865499}
+  jumpHeight: 4
+  gravity: -5
 --- !u!114 &3809671760738452572
 MonoBehaviour:
   m_ObjectHideFlags: 0
