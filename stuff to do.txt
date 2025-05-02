@@ -1,0 +1,7 @@
+
+- finish level design (important)
+
+- scope canvas per gun for aiming (kind of important)
+- fix player animations (important)
+
+- give ability to jump (not that important) (partially done - jumping too high)
