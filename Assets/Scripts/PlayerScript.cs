@@ -40,6 +40,10 @@ namespace QuickStart
         public float jumpHeight = 2f;
         public float gravity = -9.81f;
         private float verticalVelocity = 0f;
+
+        private Animator animator;
+
+        public Canvas scopeCanvas;
         
         
         public void Start()
@@ -47,6 +51,8 @@ namespace QuickStart
             //Scene currentScene 
             //if ()
             _characterController = GetComponent<CharacterController>();
+            animator = GetComponentInChildren<Animator>();
+            scopeCanvas.gameObject.SetActive(false);
         }
 
         void OnNameChanged(string _Old, string _New)
@@ -133,15 +139,27 @@ namespace QuickStart
                 return;
             }
             var moveDirection = transform.forward * Input.GetAxis("Vertical") + transform.right * Input.GetAxis("Horizontal");
+            animator.SetFloat("fwdVelocity", moveSpeed);
 
             if (!_characterController.isGrounded) verticalVelocity += gravity * Time.deltaTime;
             else verticalVelocity = 0;
+
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                moveSpeed = moveSpeed * 2;
+                animator.SetBool("isRunning", true);
+            }
             
             if (Input.GetKeyDown(KeyCode.Space) && Physics.SphereCast(new Ray(transform.position, Vector3.down), _characterController.radius, 2f))
             {
                 verticalVelocity = jumpHeight;
+                animator.SetBool("jumping", true);
             }
-            
+            else if (_characterController.isGrounded)
+            {
+                animator.SetBool("jumping", false);
+            }
+
             moveDirection.y = verticalVelocity;
 
 
@@ -166,6 +184,7 @@ namespace QuickStart
 
                     if (ammoManager.currentAmmo > 0)
                     {
+                        animator.SetTrigger("IsShooting");
                         Debug.Log("Player is shooting");
                         weaponCooldownTime = Time.time + weapon.cooldown;
                         canShoot = false;
@@ -176,6 +195,12 @@ namespace QuickStart
 
                         CmdShootRay(origin, direction); // Call shooting method
                     }
+                }
+
+                if (Input.GetButton("Fire2"))
+                {
+                    animator.SetBool("aiming", true);
+                    scopeCanvas.gameObject.SetActive(true);
                 }
             //}
             

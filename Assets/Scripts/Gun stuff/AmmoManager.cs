@@ -15,6 +15,7 @@ public class AmmoManager : MonoBehaviour
     public bool isReloading = false;
     private bool canHoldFire => currentWeapon.allowHoldFire;
     [SerializeField] private PlayerScript playerScript;
+    private Animator animator;
 
     public void EquipWeapon()
     {
@@ -84,6 +85,7 @@ public class AmmoManager : MonoBehaviour
     {
         //playerScript.canShoot = false;
         isReloading = true;
+        animator.SetBool("isReloading", true);
         Debug.Log("Reloading...");
         yield return new WaitForSeconds(currentWeapon.reloadSpeed);
         currentAmmo = currentWeapon.maxAmmo;

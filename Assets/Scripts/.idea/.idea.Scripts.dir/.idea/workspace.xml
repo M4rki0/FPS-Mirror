@@ -14,7 +14,6 @@
     <setting file="file://$PROJECT_DIR$/GoToGamesList.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/GunSelectionSystem.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Loby/Player.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/PlayerSetup.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/ReadyUp.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/SceneScript.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
@@ -63,6 +62,8 @@
       <workItem from="1741885250794" duration="338000" />
       <workItem from="1742308522352" duration="1000" />
       <workItem from="1742567401775" duration="122000" />
+      <workItem from="1746541827257" duration="20000" />
+      <workItem from="1746541862290" duration="8000" />
     </task>
     <servers />
   </component>
