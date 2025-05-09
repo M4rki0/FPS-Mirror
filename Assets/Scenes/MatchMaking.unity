@@ -917,6 +917,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6945346968145089132, guid: e9fff89d016211a49aa1425633fa3f1e, type: 3}
     - target: {fileID: 1516858732921740734, guid: 547f7b7344717d84c8718b86988aff01, type: 3}
+      propertyPath: playerSpawnMethod
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1516858732921740734, guid: 547f7b7344717d84c8718b86988aff01, type: 3}
       propertyPath: spawnPrefabs.Array.size
       value: 1
       objectReference: {fileID: 0}

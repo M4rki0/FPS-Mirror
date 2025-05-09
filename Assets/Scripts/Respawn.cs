@@ -5,55 +5,60 @@ using UnityEngine;
 public class Respawn : NetworkBehaviour
 {
     private PlayerHealth health;
-
-    private void Start()
-    {
-        health = GetComponent<PlayerHealth>();
-    }
+    private PlayerScript _playerScript;
 
     public void RequestRespawn() // Called by UI button
     {
-        if (isLocalPlayer)
+        _playerScript = PlayerScript.localPlayer;
+        if (_playerScript.isLocalPlayer)
         {
-            CmdRequestRespawn();
+            CmdRequestRespawn(_playerScript.gameObject);
+            Debug.Log("Player is trying to respawn");
         }
     }
-
-    [Command]
-    private void CmdRequestRespawn()
+    
+    [Command(requiresAuthority = false)]
+    private void CmdRequestRespawn(GameObject player)
     {
         // Reset player stats
-        health.ResetHealth();
+        var hp = player.GetComponent<PlayerHealth>();
+        hp.ResetHealth();
 
         // Move to start position
         Transform startPos = NetworkManager.singleton.GetStartPosition();
         if (startPos != null)
         {
-            transform.position = startPos.position;
+            player.transform.position = startPos.position;
         }
 
-        RpcRespawnClient();
+        var identity = player.GetComponent<NetworkIdentity>();
+
+        RpcRespawnClient(identity.connectionToClient, player);
     }
 
-    [ClientRpc]
-    private void RpcRespawnClient()
+    [TargetRpc]
+    private void RpcRespawnClient(NetworkConnectionToClient playerConn, GameObject player)
     {
-        if (!isLocalPlayer) return;
-
+        var playerScript = player.GetComponent<PlayerScript>();
+        
+        Debug.Log("conn: "+playerConn+" script: "+playerScript);
         // Re-enable controls
-        GetComponent<PlayerScript>().enabled = true;
-        GetComponent<CharacterController>().enabled = true;
+        player.GetComponent<PlayerScript>().enabled = true;
+        playerScript.GetComponent<CharacterController>().enabled = true;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        player.GetComponentInChildren<MouseLook>().enabled = true;
 
-        foreach (var renderer in GetComponentsInChildren<Renderer>())
+        foreach (var rend in playerScript.GetComponentsInChildren<Renderer>())
         {
-            renderer.enabled = true;
+            rend.enabled = true;
         }
 
         // Hide respawn button
         GameObject respawnBtn = GameObject.FindWithTag("RespawnButton");
         if (respawnBtn)
         {
-            respawnBtn.SetActive(false);
+            respawnBtn.GetComponent<Canvas>().enabled = false;
         }
     }
 }

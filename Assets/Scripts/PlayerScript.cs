@@ -10,6 +10,7 @@ namespace QuickStart
 {
     public class PlayerScript : NetworkBehaviour
     {
+        public static PlayerScript localPlayer;
         public TMP_Text playerNameText;
         public GameObject floatingInfo;
         public Transform playerCameraPosition;
@@ -44,6 +45,8 @@ namespace QuickStart
         private Animator animator;
 
         public Canvas scopeCanvas;
+
+        public bool disabled;
         
         
         public void Start()
@@ -52,7 +55,7 @@ namespace QuickStart
             //if ()
             _characterController = GetComponent<CharacterController>();
             animator = GetComponentInChildren<Animator>();
-            scopeCanvas.gameObject.SetActive(false);
+            //scopeCanvas.gameObject.SetActive(false);
         }
 
         void OnNameChanged(string _Old, string _New)
@@ -109,6 +112,8 @@ namespace QuickStart
             CmdSetupPlayer(name, color);
             GameManager.Instance.localPlayer = gameObject;
             sceneScript.playerScript = this;
+
+            if(isLocalPlayer) localPlayer = this;
         }
 
         [Command]
@@ -129,7 +134,7 @@ namespace QuickStart
 
         void Update()
         {
-
+            if (disabled) return;
             if (!isPlayerInGame) return;
 
             if (!isLocalPlayer)
@@ -200,7 +205,7 @@ namespace QuickStart
                 if (Input.GetButton("Fire2"))
                 {
                     animator.SetBool("aiming", true);
-                    scopeCanvas.gameObject.SetActive(true);
+                    //scopeCanvas.gameObject.SetActive(true);
                 }
             //}
             

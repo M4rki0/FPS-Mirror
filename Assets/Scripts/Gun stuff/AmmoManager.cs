@@ -17,6 +17,11 @@ public class AmmoManager : MonoBehaviour
     [SerializeField] private PlayerScript playerScript;
     private Animator animator;
 
+    void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
+
     public void EquipWeapon()
     {
         var ammoTextGO = GameObject.FindWithTag("AmmoText");

@@ -8,6 +8,7 @@ public class MouseLook : MonoBehaviour
 
     public bool dontLook;
     private bool _firstTimeSetup;
+    public bool disabled;
 
     void Start()
     {
@@ -17,6 +18,7 @@ public class MouseLook : MonoBehaviour
 
     void Update()
     {
+        if (disabled) return;
         if (GameManager.Instance.localPlayer == null) return;
         if (!GameManager.Instance.localPlayer.GetComponent<QuickStart.PlayerScript>().isPlayerInGame) return;
         if (!_firstTimeSetup) { FirstTime(); }

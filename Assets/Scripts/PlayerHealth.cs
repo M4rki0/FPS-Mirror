@@ -6,6 +6,8 @@ using Mirror;
 using Mirror.Examples.BenchmarkIdle;
 using QuickStart;
 using TMPro;
+using UnityEditor;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : NetworkBehaviour
 {
@@ -17,11 +19,12 @@ public class PlayerHealth : NetworkBehaviour
     private TMP_Text healthText;
 
     private int damage = 5;
-    
-    private GameObject localPlayer;
+
+    private PlayerScript _playerScript;
 
     private void Start()
     {
+        _playerScript = GetComponent<PlayerScript>();
         if (isServer)
         {
             currentHealth = maxHealth;
@@ -67,7 +70,7 @@ public class PlayerHealth : NetworkBehaviour
             damage *= 2; // Multiply damage by 2
         }*/
 
-        if (!localPlayer)
+        if (!_playerScript.isLocalPlayer)
         {
             currentHealth -= i;
             Debug.Log($"Player took {i} damage. Current health: {currentHealth}");
@@ -94,20 +97,25 @@ public class PlayerHealth : NetworkBehaviour
     {
         if (!isLocalPlayer) return;
 
-        // Disable controls
-        GetComponent<PlayerScript>().enabled = false;
-        GetComponent<CharacterController>().enabled = false;
+        GetComponent<PlayerScript>().disabled = true;
+        GetComponentInChildren<MouseLook>().disabled = true;
 
         foreach (var renderer in GetComponentsInChildren<Renderer>())
         {
             renderer.enabled = false;
         }
 
+        var respawn = GameObject.FindWithTag("RespawnButton");
         // Show respawn UI
-        GameObject respawnBtn = GameObject.FindWithTag("RespawnButton");
-        if (respawnBtn)
+        if (respawn)
         {
-            respawnBtn.SetActive(true);
+            if (respawn.TryGetComponent<Canvas>(out var canvas))
+            {
+                canvas.enabled = true;
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+                Debug.Log("Canvas is active");
+            }
         }
     }
     
