@@ -5,6 +5,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 using UnityEngine.SceneManagement;
+using Object = UnityEngine.Object;
 
 namespace QuickStart
 {
@@ -251,14 +252,15 @@ namespace QuickStart
             if (weapon == null) return; // Ensure weapon exists
 
             RaycastHit hit;
-            Transform camTransform = Camera.main.transform; // Use player's camera
+            //Transform camTransform = Camera.main.transform; // Use player's camera
 
-            if (Physics.Raycast(camTransform.position, camTransform.forward, out hit, weapon.range))
+            if (Physics.Raycast(origin, direction, out hit, weapon.range))
             {
                 Debug.Log($"Hit: {hit.collider.name}");
 
-                if (hit.collider.TryGetComponent<PlayerHealth>(out PlayerHealth playerHealth))
+                if (!IsItMe(hit.collider) && hit.collider.gameObject.TryGetComponent(out PlayerHealth playerHealth))
                 {
+                    Debug.Log("Dealing " + weapon.damage + " to " + hit.collider.name);
                     playerHealth.TakeDamage(weapon.damage);
                 }
             }
@@ -267,6 +269,10 @@ namespace QuickStart
         }
 
 
+        private bool IsItMe(Object hitPlayer)
+        {
+            return hitPlayer == this;
+        }
 
         [ClientRpc]
         void RpcFireWeapon(Vector3 position, Quaternion rotation)

@@ -70,12 +70,9 @@ public class PlayerHealth : NetworkBehaviour
             damage *= 2; // Multiply damage by 2
         }*/
 
-        if (!_playerScript.isLocalPlayer)
-        {
-            currentHealth -= i;
-            Debug.Log($"Player took {i} damage. Current health: {currentHealth}");
-        }
-
+        currentHealth -= i;
+        Debug.Log($"Player took {i} damage. Current health: {currentHealth}");
+        
         if (currentHealth <= 0)
         {
             currentHealth = 0;
