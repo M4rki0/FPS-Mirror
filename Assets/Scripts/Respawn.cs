@@ -6,6 +6,7 @@ public class Respawn : NetworkBehaviour
 {
     private PlayerHealth health;
     private PlayerScript _playerScript;
+    public Canvas weaponCanvas;
 
     public void RequestRespawn() // Called by UI button
     {
@@ -36,6 +37,11 @@ public class Respawn : NetworkBehaviour
         RpcRespawnClient(identity.connectionToClient, player);
     }
 
+    public void ShowWeaponUI()
+    {
+        weaponCanvas.gameObject.SetActive(true); 
+    }
+
     [TargetRpc]
     private void RpcRespawnClient(NetworkConnectionToClient playerConn, GameObject player)
     {
@@ -43,11 +49,10 @@ public class Respawn : NetworkBehaviour
         
         Debug.Log("conn: "+playerConn+" script: "+playerScript);
         // Re-enable controls
-        player.GetComponent<PlayerScript>().enabled = true;
-        playerScript.GetComponent<CharacterController>().enabled = true;
+        player.GetComponent<PlayerScript>().disabled = false;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        player.GetComponentInChildren<MouseLook>().enabled = true;
+        player.GetComponentInChildren<MouseLook>().disabled = false;
 
         foreach (var rend in playerScript.GetComponentsInChildren<Renderer>())
         {
