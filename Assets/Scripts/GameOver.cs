@@ -15,7 +15,7 @@ public class GameOver : NetworkBehaviour
         var gmGO = GameObject.FindWithTag("GameManager");
         gameManager = gmGO.GetComponent<GameManager>();
     }
-
+    
     public void PlayAgain()
     {
         if (isServer)

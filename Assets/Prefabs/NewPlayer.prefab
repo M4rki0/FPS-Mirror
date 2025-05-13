@@ -165,6 +165,7 @@ MonoBehaviour:
   jumpHeight: 4
   gravity: -5
   scopeCanvas: {fileID: 0}
+  disabled: 0
 --- !u!114 &3809671760738452572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -830,6 +831,14 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 124902065087601079, guid: 17c529c66abc46645aec3982795711cd, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 9010563553434261139, guid: 8fd8829edd1ee864590115af769a21a9, type: 3}
+    - target: {fileID: 124902065087601079, guid: 17c529c66abc46645aec3982795711cd, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 4991655869066706035, guid: f1204c122a3023b4480cb3a527cb837f, type: 3}
     - target: {fileID: 919132149155446097, guid: 17c529c66abc46645aec3982795711cd, type: 3}
       propertyPath: m_Name
       value: character
