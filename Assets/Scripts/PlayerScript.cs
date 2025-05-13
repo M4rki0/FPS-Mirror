@@ -48,6 +48,7 @@ namespace QuickStart
         public Canvas scopeCanvas;
 
         public bool disabled;
+        private bool _isRunning;
         
         
         public void Start()
@@ -144,16 +145,33 @@ namespace QuickStart
                 floatingInfo.transform.LookAt(Camera.main.transform);
                 return;
             }
+            
+            // Get input
+            float horizontal = Input.GetAxis("Horizontal");
+            float vertical = Input.GetAxis("Vertical");
+
+            // Check if player is moving
+            bool isMoving = horizontal != 0 || vertical != 0;
+
             var moveDirection = transform.forward * Input.GetAxis("Vertical") + transform.right * Input.GetAxis("Horizontal");
-            animator.SetFloat("fwdVelocity", moveSpeed);
+            if (isMoving = true)
+            {
+                animator.SetBool("isMoving", isMoving);
+                animator.SetFloat("fwdVelocity", moveSpeed);
+            }
 
             if (!_characterController.isGrounded) verticalVelocity += gravity * Time.deltaTime;
             else verticalVelocity = 0;
 
-            if (Input.GetKeyDown(KeyCode.LeftShift))
+            // TODO if needed make this less lossy
+            _isRunning = Input.GetKey(KeyCode.LeftShift);
+            if (_isRunning)
             {
-                moveSpeed = moveSpeed * 2;
-                animator.SetBool("isRunning", true);
+                StartRunning();
+            }
+            else
+            {
+                StopRunning();
             }
             
             if (Input.GetKeyDown(KeyCode.Space) && Physics.SphereCast(new Ray(transform.position, Vector3.down), _characterController.radius, 2f))
@@ -221,6 +239,18 @@ namespace QuickStart
                 return;
             }
 
+        }
+
+        private void StartRunning()
+        {
+            moveSpeed = 20;
+            animator.SetBool("isRunning", true);
+        }
+
+        private void StopRunning()
+        {
+            moveSpeed = 10;
+            animator.SetBool("isRunning", false);
         }
 
         public void SetLocalLoadout(GunSelectionSystem.GunType gun, PerkSystem.PerkType perk)
