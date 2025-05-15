@@ -49,12 +49,15 @@ public class AmmoManager : MonoBehaviour
         }*/
 
         // Reload Logic
+        
+        //Debug.Log("IsReloading param: " + animator.GetBool("IsReloading"));
+        
         if (Input.GetKeyDown(KeyCode.R) || currentAmmo == 0) 
         {
+            Debug.Log("Starting Reload");
             StartCoroutine(Reload());
-            isReloading = true;
         }
-
+        
         // Weapon Switching
         //HandleWeaponSwitching();
 
@@ -94,6 +97,7 @@ public class AmmoManager : MonoBehaviour
         Debug.Log("Reloading...");
         yield return new WaitForSeconds(currentWeapon.reloadSpeed);
         currentAmmo = currentWeapon.maxAmmo;
+        animator.SetBool("isReloading", false);
         UpdateUI();
         isReloading = false;
         Debug.Log("Gun has been reloaded");

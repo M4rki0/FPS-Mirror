@@ -154,10 +154,14 @@ namespace QuickStart
             bool isMoving = horizontal != 0 || vertical != 0;
 
             var moveDirection = transform.forward * Input.GetAxis("Vertical") + transform.right * Input.GetAxis("Horizontal");
-            if (isMoving = true)
+            if (isMoving)
             {
-                animator.SetBool("isMoving", isMoving);
+                animator.SetBool("isMoving", true);
                 animator.SetFloat("fwdVelocity", moveSpeed);
+            }
+            else
+            {
+                animator.SetBool("isMoving", false);
             }
 
             if (!_characterController.isGrounded) verticalVelocity += gravity * Time.deltaTime;
@@ -226,18 +230,27 @@ namespace QuickStart
                     animator.SetBool("aiming", true);
                     //scopeCanvas.gameObject.SetActive(true);
                 }
-            //}
+                else
+                {
+                    animator.SetBool("aiming", false);
+                }
+                
+                if (Input.GetKeyDown(KeyCode.R))
+                {
+                    Debug.Log("Pressed R");
+                    Debug.Log("IsReloading param: " + animator.GetBool("IsReloading"));
+                }
+
+                if (Time.time > weaponCooldownTime)
+                {
+                    canShoot = true; 
+                }
             
-            if (Time.time > weaponCooldownTime)
-            {
-                canShoot = true;
-            }
-            
-            if (weapon == null)
-            {
-                Debug.LogError("activeWeapon is null! Make sure ActivateGun() is called before shooting.");
-                return;
-            }
+                if (weapon == null)
+                {
+                    Debug.LogError("activeWeapon is null! Make sure ActivateGun() is called before shooting.");
+                    return;
+                }
 
         }
 
