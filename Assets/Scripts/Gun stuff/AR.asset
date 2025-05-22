@@ -15,5 +15,5 @@ MonoBehaviour:
   weaponName: AR
   maxAmmo: 30
   fireRate: 15
-  reloadSpeed: 5
+  reloadSpeed: 3
   allowHoldFire: 1

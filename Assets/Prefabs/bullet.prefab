@@ -29,8 +29,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 183.50455, y: 166.36505, z: -2.1108842}
-  m_LocalScale: {x: 0.011662919, y: 0.011662919, z: 0.047254656}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7194436171222271041}
   m_Father: {fileID: 0}
@@ -74,7 +74,7 @@ Rigidbody:
   serializedVersion: 4
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0.01
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -119,7 +119,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 323.5, y: 323.5, z: 79.84302}
+  m_LocalScale: {x: 5.46, y: 5.46, z: 5.46}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 4870692651249508186}
