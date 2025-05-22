@@ -167,7 +167,7 @@ MonoBehaviour:
     m_Bits: 0
   bullet: {fileID: 3433118400659764973, guid: fe16005c36b9cfc42b31ef03df10503a, type: 3}
   firePosition: {fileID: 8809571295521235454}
-  bulletSpeed: 0
+  bulletSpeed: 50000
 --- !u!114 &-815111171339158518
 MonoBehaviour:
   m_ObjectHideFlags: 0

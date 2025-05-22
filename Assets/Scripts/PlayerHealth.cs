@@ -50,7 +50,7 @@ public class PlayerHealth : NetworkBehaviour
     {
         if (healthText != null)
         {
-            healthText.text = $"Health: {currentHealth}/{maxHealth}";
+            healthText.text = $"{currentHealth}/{maxHealth}";
         }
     }
 

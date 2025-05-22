@@ -152,10 +152,10 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  damage: 25
+  damage: 50
   range: 100
   fpsCam: {fileID: 0}
-  cooldown: 2
+  cooldown: 10
   weaponAmmo: 0
   hitMask:
     serializedVersion: 2

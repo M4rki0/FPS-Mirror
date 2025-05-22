@@ -45,10 +45,12 @@ namespace QuickStart
 
         private Animator animator;
 
-        public Canvas scopeCanvas;
+        public GameObject pauseCanvas;
 
         public bool disabled;
         private bool _isRunning;
+        public bool foundPause;
+        private bool pauseCanvasBool;
         
         
         public void Start()
@@ -136,8 +138,25 @@ namespace QuickStart
 
         void Update()
         {
-            if (disabled) return;
+            Pause();
+            
             if (!isPlayerInGame) return;
+            
+            if (isLocalPlayer && !foundPause)
+                        {
+                            pauseCanvas = GameObject.Find("PauseCanvas");
+                            if (pauseCanvas != null)
+                            {
+                                foundPause = true;
+                                pauseCanvas.GetComponent<Pause>().player = this;
+                                CloseEscapeMenu();
+                            }
+                        }
+            
+            if (disabled) return;
+            
+
+            
 
             if (!isLocalPlayer)
             {
@@ -251,6 +270,7 @@ namespace QuickStart
                     Debug.LogError("activeWeapon is null! Make sure ActivateGun() is called before shooting.");
                     return;
                 }
+                
 
         }
 
@@ -264,6 +284,44 @@ namespace QuickStart
         {
             moveSpeed = 10;
             animator.SetBool("isRunning", false);
+        }
+
+        private void Pause()
+        {
+            if (!pauseCanvas) return;
+            if (!Input.GetKeyDown(KeyCode.Escape)) return;
+            if (!pauseCanvasBool)
+            {
+                OpenEscapeMenu();
+            }
+            else
+            {
+                CloseEscapeMenu();
+            }
+        }
+
+        public void OpenEscapeMenu()
+        {
+            pauseCanvas.SetActive(true);
+            pauseCanvasBool = true;
+                
+            // player stuff
+            disabled = true;
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+            GetComponentInChildren<MouseLook>().enabled = false;
+        }
+
+        public void CloseEscapeMenu()
+        {
+            pauseCanvas.SetActive(false);
+            pauseCanvasBool = false;
+                
+            // player stuff
+            disabled = false;
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+            GetComponentInChildren<MouseLook>().enabled = true;
         }
 
         public void SetLocalLoadout(GunSelectionSystem.GunType gun, PerkSystem.PerkType perk)

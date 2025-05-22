@@ -85,7 +85,7 @@ public class AmmoManager : MonoBehaviour
     {
         if (ammoText != null)
         {
-            ammoText.text = $"Ammo: {currentAmmo}/{currentWeapon.maxAmmo}";
+            ammoText.text = $"{currentAmmo}/{currentWeapon.maxAmmo}";
         }
     }
 
