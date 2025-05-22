@@ -55,7 +55,6 @@ public class NetworkedLobbyPlayer : NetworkBehaviour
         }
 
         Debug.Log("Ready Up: "+isReady);
-        FindAnyObjectByType<ReadyUp>().ServerReadyUp();
     }
 
     [Command]

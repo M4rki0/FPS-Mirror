@@ -7,9 +7,19 @@ namespace QuickStart
 {
     public class Menu : MonoBehaviour
     {
-        public void LoadScene()
+        public void GoToMatchMaking()
         {
             SceneManager.LoadScene("MatchMaking");
+        }
+
+        public void GoToControls()
+        {
+            SceneManager.LoadScene("Controls");
+        }
+
+        public void QuitGame()
+        {
+            Application.Quit();
         }
     }
 }

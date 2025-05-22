@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu.unity
     guid: 3d71acbb9a580f2409f2ed224e78e60c
   - enabled: 1
+    path: Assets/Scenes/Controls.unity
+    guid: 38095cb347071a04ca2a07e046f3aaf8
+  - enabled: 1
     path: Assets/Scenes/MatchMaking.unity
     guid: e0025da573a412145a0a17826d47efec
   - enabled: 1
